@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_0qJbewxZPIIAs8dmSj69pYAVa4Wx",
+  "orgId": "team_CoqT3mi8QD3LIP45nU04Jxxg",
+  "projectName": "dragdem-app",
+  "settings": {
+    "createdAt": 1777804923974,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
