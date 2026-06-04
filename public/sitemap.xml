@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://dragdem.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragdem.com/en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://dragdem.com/de"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://dragdem.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://dragdem.com/mx"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://dragdem.com/br"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://dragdem.com/th"/>
+    <priority>1.0</priority>
+  </url>
+</urlset>

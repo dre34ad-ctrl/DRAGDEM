@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  /* Neon-Noir Cabaret Palette */
+  --color-primary: #FF00FF; /* Neon Magenta */
+  --color-secondary: #00FFFF; /* Neon Cyan */
+  --color-luxury-gold: #D4AF37;
+  --color-gold-glow: #F7EF8A;
+  --color-surface: #1E1E1E;
+  --color-deep: #121212;
+  --color-accent: #00FFFF;
+  --color-crimson-velvet: #8B0000;
+  --color-deep-charcoal: #121212;
+  --color-royal-purple: #7000FF;
+  
+  /* Fonts */
+  --font-inter: var(--font-inter);
+  --font-montserrat: var(--font-montserrat);
+  --font-playfair: var(--font-playfair);
+
+  /* Glow Effects (Shadows) */
+  --shadow-glow-magenta: 0 0 10px rgba(255, 0, 255, 0.6), 0 0 20px rgba(255, 0, 255, 0.3);
+  --shadow-glow-cyan: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.3);
+  --shadow-glow-gold: 0 0 15px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.2);
+  --shadow-glow-purple: 0 0 15px rgba(112, 0, 255, 0.5);
+
+  /* Animations */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes neon-pulse {
+    from { opacity: 0.8; filter: drop-shadow(0 0 2px #FF00FF); }
+    to { opacity: 1; filter: drop-shadow(0 0 10px #FF00FF); }
+  }
+
+  @keyframes gold-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  --animate-fade-in: fade-in 1s ease-out forwards;
+  --animate-slide-up: slide-up 0.8s ease-out forwards;
+  --animate-neon-pulse: neon-pulse 2s infinite alternate;
+  --animate-gold-shimmer: gold-shimmer 3s linear infinite;
+  --animate-ticker: ticker-scroll 30s linear infinite;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+}
+
+/* Global Utility Classes for "Prestige" Look */
+
+.glamour-heading {
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+  background: linear-gradient(
+    135deg, 
+    #D4AF37 0%, 
+    #F7EF8A 25%, 
+    #D4AF37 50%, 
+    #F7EF8A 75%, 
+    #D4AF37 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 5s linear infinite;
+  filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.3));
+}
+
+.neon-magenta-text {
+  color: #FF00FF;
+  text-shadow: 0 0 5px #FF00FF, 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.neon-cyan-text {
+  color: #00FFFF;
+  text-shadow: 0 0 5px #00FFFF, 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.glass-panel {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(22, 22, 22, 0.7);
+}
+
+.gold-leaf-border {
+  position: relative;
+  background: linear-gradient(135deg, #D4AF37, #F7EF8A, #D4AF37);
+  padding: 1px;
+  border-radius: inherit;
+}
+
+.stage-lighting-top {
+  background: radial-gradient(
+    circle at 50% -20%, 
+    rgba(139, 0, 0, 0.3) 0%, 
+    rgba(112, 0, 255, 0.1) 40%, 
+    transparent 70%
+  );
+}
+
+.stage-lighting-bottom {
+  background: radial-gradient(
+    circle at 50% 120%, 
+    rgba(255, 0, 255, 0.1) 0%, 
+    rgba(0, 255, 255, 0.05) 40%, 
+    transparent 70%
+  );
+}
+
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-crimson-velvet);
+  border-y: 1px solid var(--color-luxury-gold);
+  padding: 0.5rem 0;
+}
+
+.ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.ticker-item {
+  display: inline-block;
+  padding: 0 2rem;
+  color: var(--color-accent);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+}
+
+/* Premium Button */
+.btn-prestige {
+  @apply relative px-8 py-4 font-bold rounded-full overflow-hidden transition-all duration-300 uppercase tracking-widest text-sm;
+}
+
+.btn-prestige-primary {
+  @apply bg-primary text-white shadow-glow-magenta hover:scale-105 active:scale-95;
+}
+
+.btn-prestige-gold {
+  @apply border-2 border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-black hover:shadow-glow-gold;
+}
+
+/* Custom Scrollbar for Noir vibe */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}

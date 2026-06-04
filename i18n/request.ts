@@ -1,0 +1,18 @@
+import {getRequestConfig} from 'next-intl/server';
+import {notFound} from 'next/navigation';
+
+// Can be imported from a shared config
+const locales = ['en', 'de', 'fr', 'mx', 'br', 'pt', 'th', 'jp', 'it', 'il', 'es', 'pl', 'sv', 'no', 'da', 'ko', 'vi', 'ar', 'zh', 'ph', 'he', 'kr'];
+
+export default getRequestConfig(async ({requestLocale}) => {
+  const locale = await requestLocale;
+  
+  if (!locale || !locales.includes(locale as any)) {
+    notFound();
+  }
+
+  return {
+    locale: locale as string,
+    messages: (await import(`../public/locales/${locale}.json`)).default
+  };
+});

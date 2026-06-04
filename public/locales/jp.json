@@ -1,0 +1,34 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "delete": "削除",
+    "next": "次へ",
+    "back": "戻る",
+    "submit": "送信",
+    "confirm": "確認",
+    "verified": "認証済み"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "vault": "ヴォルト",
+    "search": "検索",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "logout": "ログアウト"
+  },
+  "performer": {
+    "vault_title": "ドラッグ・ヴォルト",
+    "add_asset": "アセットを追加",
+    "vault_description": "高画質なパフォーマンス動画、音楽、プロフェッショナルなアセットを管理します。",
+    "stage_name": "ステージネーム",
+    "drag_style": "ドラッグスタイル"
+  },
+  "legal": {
+    "safety_exit_title": "セーフティ・エグジット保証",
+    "safety_exit_summary": "安全上の脅威により出演を辞退した場合でも、報酬の100%を保持できます。",
+    "asf_clause_title": "反社会的勢力排除条項",
+    "asf_clause_description": "当プラットフォームの利用者は、暴力団等の反社会的勢力との関わりがないことを表明し、保証するものとします。違反が判明した場合は、催告なく即時に契約を解除します。"
+  }
+}

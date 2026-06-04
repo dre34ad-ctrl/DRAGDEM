@@ -1,0 +1,13 @@
+{
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "next": "Avanti",
+    "back": "Indietro",
+    "submit": "Invia",
+    "confirm": "Conferma",
+    "verified": "Verificato"
+  }
+}

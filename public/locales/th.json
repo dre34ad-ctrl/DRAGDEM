@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "next": "ถัดไป",
+    "back": "กลับ",
+    "submit": "ส่ง",
+    "confirm": "ยืนยัน",
+    "verified": "ยืนยันแล้ว"
+  },
+  "nav": {
+    "dashboard": "แผงควบคุม",
+    "vault": "คลังแดร็ก (The Vault)",
+    "search": "ค้นหา",
+    "profile": "โปรไฟล์",
+    "settings": "การตั้งค่า",
+    "logout": "ออกจากระบบ"
+  },
+  "welcome": {
+    "title": "ยินดีต้อนรับสู่ DRAGDEM",
+    "description": "เลือกภาษาและสกุลเงินที่คุณต้องการเพื่อดำเนินการต่อ",
+    "save_continue": "บันทึกและดำเนินการต่อ",
+    "continue_english": "ดำเนินการต่อเป็นภาษาอังกฤษ"
+  },
+  "auth": {
+    "login_title": "เข้าสู่ระบบ DRAGDEM",
+    "signup_cta": "เข้าร่วมมาตรฐานความเป็นเลิศของแดร็ก",
+    "email": "อีเมล",
+    "password": "รหัสผ่าน"
+  },
+  "performer": {
+    "vault_title": "The Drag Vault",
+    "add_asset": "เพิ่มไฟล์",
+    "vault_description": "จัดการวิดีโอการแสดง เพลง และไฟล์งานระดับมืออาชีพของคุณ",
+    "stage_name": "ชื่อในการแสดง",
+    "drag_style": "สไตล์แดร็ก",
+    "drag_queen_option": "แดร็กควีน (Drag Queen)",
+    "drag_king_option": "แดร็กคิง (Drag King)",
+    "bio_queen_option": "ไบโอควีน (Bio-Queen)",
+    "transformista_option": "ทรานสฟอร์มิสต้า (Transformista)",
+    "two_spirit_option": "ทู-สปิริต (2-Spirit)",
+    "katoey_option": "กะเทย (Katoey)",
+    "new_badge": "ใหม่"
+  },
+  "seeker": {
+    "verification_title": "การยืนยันตัวตนผู้จ้างงาน",
+    "corporate_partner": "พาร์ทเนอร์องค์กร",
+    "tax_id": "หมายเลขประจำตัวผู้เสียภาษี",
+    "brazil_nfse": "Nota Fiscal Eletrônica (NFS-e)",
+    "thailand_wht": "ภาษีหัก ณ ที่จ่าย (WHT) / 50 ทวิ",
+    "start_onboarding": "เริ่มขั้นตอนการลงทะเบียน"
+  },
+  "booking": {
+    "wizard_step_1": "ข้อมูลงาน",
+    "wizard_step_2": "บริการและสกุลเงิน",
+    "wizard_step_3": "ข้อตกลงทางเทคนิค",
+    "technical_rider": "รายะเอียดทางเทคนิค (Technical Rider)",
+    "cue_sheet": "ลำดับการแสดง (Cue Sheet)",
+    "accept_agreement": "ฉันได้ตรวจสอบลำดับการแสดงแล้ว และยืนยันว่าทีมงานฝ่ายเทคนิคของฉันสามารถดำเนินการตามนั้นได้"
+  },
+  "support": {
+    "dispute_center": "ศูนย์ข้อพิพาท",
+    "mediator_workbench": "ระบบจัดการข้อพิพาท",
+    "release_funds": "อนุมัติการจ่ายเงิน",
+    "full_refund": "คืนเงินเต็มจำนวน",
+    "partial_refund": "คืนเงินบางส่วน %",
+    "case_id": "เคส",
+    "priority": "ความสำคัญ",
+    "escrow_vault": "ตู้เซฟทรัพย์สิน Escrow",
+    "locked": "ล็อกแล้ว",
+    "binding_agreement": "ข้อตกลงที่มีผลผูกพัน",
+    "technical_rider": "ข้อกำหนดทางเทคนิค",
+    "cue_sheet_highlights": "ไฮไลท์คิวการแสดง",
+    "seeker_claim": "คำร้องจากผู้ว่าจ้าง",
+    "performer_rebuttal": "คำโต้แย้งจากศิลปิน",
+    "external_chat": "การสื่อสารระหว่างคู่กรณี",
+    "immutable_log": "บันทึกที่ไม่สามารถแก้ไขได้",
+    "action_matrix": "เมทริกซ์การดำเนินการ",
+    "internal_notes": "บันทึกภายในของผู้ไกล่เกลี่ย",
+    "private": "ส่วนตัว",
+    "finalize_resolution": "ดำเนินการแก้ไขขั้นสุดท้าย"
+  },
+  "legal": {
+    "safety_exit_title": "การรับประกันการออกจากงานเพื่อความปลอดภัย",
+    "safety_exit_summary": "นักแสดงจะได้รับค่าจ้าง 100% หากต้องออกจากงานเนื่องจากภัยคุกคามด้านความปลอดภัยที่ได้รับการยืนยัน",
+    "kill_fee_title": "นโยบายการยกเลิก",
+    "kill_fee_7_14": "ค่าธรรมเนียม 50% สำหรับการยกเลิกก่อนงาน 7-14 วัน",
+    "kill_fee_under_7": "ค่าธรรมเนียม 100% สำหรับการยกเลิกก่อนงานน้อยกว่า 7 วัน",
+    "escrow_info": "เงินจะถูกเก็บไว้ในระบบ Escrow และจะโอนให้หลังจากจบงาน 48 ชั่วโมง"
+  },
+  "home": {
+    "hero_badge": "โครงสร้างพื้นฐานระดับมืออาชีพสำหรับวงการแดร็ก",
+    "hero_title_1": "แดร็กคือ ",
+    "hero_title_italic": "ธุรกิจ",
+    "hero_description": "เลิกจัดการอาณาจักรของคุณผ่านสเปรดชีตได้แล้ว นี่คือแพลตฟอร์มแบบครบวงจรแห่งแรกสำหรับนักแสดงมืออาชีพในการจัดการการจอง ไฟล์งาน และสื่อประชาสัมพันธ์",
+    "cta_get_started": "เริ่มต้นใช้งานฟรี",
+    "cta_view_demo": "ดูโปรไฟล์ตัวอย่าง"
+  },
+  "search": {
+    "title": "ค้นหาศิลปิน",
+    "query_placeholder": "ค้นหาด้วยชื่อ...",
+    "location_placeholder": "ทุกสถานที่",
+    "category_placeholder": "ทุกหมวดหมู่",
+    "results_count": "พบศิลปิน {count} ท่าน",
+    "no_results": "ไม่พบศิลปินที่ตรงกับเงื่อนไขของคุณ",
+    "filters": "ตัวกรอง",
+    "view_profile": "ดูโปรไฟล์"
+  }
+}

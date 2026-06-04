@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF00FF;
+  --color-secondary: #7000FF;
+  --color-surface: #1E1E1E;
+  --color-accent: #00FFFF;
+  --color-deep: #121212;
+  --color-luxury-gold: #D4AF37;
+  
+  --font-inter: var(--font-inter);
+  --font-montserrat: var(--font-montserrat);
+  --font-playfair: var(--font-playfair);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  --animate-fade-in: fade-in 1s ease-out forwards;
+  --animate-slide-up: slide-up 0.8s ease-out forwards;
+}
+
+:root {
+  --background: #121212;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+}
+
+.glamour-heading {
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+}

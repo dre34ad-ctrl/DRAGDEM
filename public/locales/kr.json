@@ -1,0 +1,30 @@
+{
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "edit": "수정",
+    "delete": "삭제",
+    "next": "다음",
+    "back": "이전",
+    "submit": "제출",
+    "confirm": "확인",
+    "verified": "인증됨"
+  },
+  "nav": {
+    "dashboard": "대시보드",
+    "vault": "보관함",
+    "search": "검색",
+    "profile": "프로필",
+    "settings": "설정",
+    "logout": "로그아웃"
+  },
+  "onboarding": {
+    "south_korea_title": "대한민국: 카카오페이 및 주민등록번호",
+    "rrn_kr_label": "주민등록번호",
+    "kakao_pay_id_label": "카카오페이 / 네이버페이 ID"
+  },
+  "performer": {
+    "stage_name": "활동명",
+    "drag_style": "공연 스타일"
+  }
+}

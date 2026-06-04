@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "next": "Próximo",
+    "back": "Voltar",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "verified": "Verificado"
+  },
+  "nav": {
+    "dashboard": "Painel",
+    "vault": "O Cofre",
+    "search": "Buscar",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "logout": "Sair"
+  },
+  "welcome": {
+    "title": "Bem-vindo ao DRAGDEM",
+    "description": "Selecione seu idioma e moeda preferidos para continuar.",
+    "save_continue": "Salvar e Continuar",
+    "continue_english": "Continuar em Inglês"
+  },
+  "auth": {
+    "login_title": "Entrar no DRAGDEM",
+    "signup_cta": "Junte-se ao padrão de excelência drag",
+    "email": "Endereço de E-mail",
+    "password": "Senha"
+  },
+  "performer": {
+    "vault_title": "The Drag Vault",
+    "add_asset": "Adicionar Ativo",
+    "vault_description": "Gerencie seus vídeos de performance, músicas e ativos profissionais.",
+    "stage_name": "Nome Artístico",
+    "drag_style": "Estilo Drag",
+    "drag_queen_option": "Drag Queen",
+    "drag_king_option": "Drag King",
+    "bio_queen_option": "Bio-Queen",
+    "transformista_option": "Transformista",
+    "two_spirit_option": "2-Spirit",
+    "katoey_option": "Katoey",
+    "new_badge": "Novo"
+  },
+  "seeker": {
+    "verification_title": "Verificação do Contratante",
+    "corporate_partner": "Parceiro Corporativo",
+    "tax_id": "CPF/CNPJ",
+    "brazil_nfse": "Nota Fiscal Eletrônica (NFS-e)",
+    "thailand_wht": "Retenção de Imposto (WHT) / 50 Tawi",
+    "start_onboarding": "Iniciar Integração"
+  },
+  "booking": {
+    "wizard_step_1": "Contexto do Evento",
+    "wizard_step_2": "Serviço e Moeda",
+    "wizard_step_3": "Acordo Técnico",
+    "technical_rider": "Rider Técnico",
+    "cue_sheet": "Roteiro de Performance",
+    "accept_agreement": "Eu revisei as orientações de performance e confirmo que minha equipe técnica pode executá-las."
+  },
+  "support": {
+    "dispute_center": "Central de Disputas",
+    "mediator_workbench": "Bancada do Mediador",
+    "release_funds": "Liberar Fundos",
+    "full_refund": "Reembolso Total",
+    "partial_refund": "Reembolso Parcial %",
+    "case_id": "Caso",
+    "priority": "Prioridade",
+    "escrow_vault": "Cofre de Ativos em Custódia",
+    "locked": "BLOQUEADO",
+    "binding_agreement": "Acordo Vinculante",
+    "technical_rider": "Rider Técnico",
+    "cue_sheet_highlights": "Destaques do Roteiro",
+    "seeker_claim": "Reivindicação do Contratante",
+    "performer_rebuttal": "Refutação do Artista",
+    "external_chat": "Comunicação entre as Partes",
+    "immutable_log": "Registro Imutável",
+    "action_matrix": "Matriz de Ação",
+    "internal_notes": "Notas Internas do Mediador",
+    "private": "PRIVADO",
+    "finalize_resolution": "Executar Resolução Final"
+  },
+  "legal": {
+    "safety_exit_title": "Garantia de Saída por Segurança",
+    "safety_exit_summary": "O artista retém 100% do pagamento se sair devido a ameaças de segurança verificadas.",
+    "kill_fee_title": "Política de Cancelamento",
+    "kill_fee_7_14": "Taxa de 50% para cancelamentos entre 7 e 14 dias",
+    "kill_fee_under_7": "Taxa de 100% para menos de 7 dias",
+    "escrow_info": "Os fundos são mantidos em custódia e liberados 48h após o show."
+  },
+  "home": {
+    "hero_badge": "A BASE PROFISSIONAL PARA DRAG",
+    "hero_title_1": "DRAG É ",
+    "hero_title_italic": "NEGÓCIO.",
+    "hero_description": "Pare de gerenciar seu império em uma planilha. A primeira plataforma completa para artistas profissionais gerenciarem reservas, ativos e kits de mídia.",
+    "cta_get_started": "COMECE GRÁTIS",
+    "cta_view_demo": "VER PERFIL DE DEMONSTRAÇÃO"
+  },
+  "search": {
+    "title": "Descobrir Talentos",
+    "query_placeholder": "Pesquisar por nome artístico...",
+    "location_placeholder": "Todas as Localizações",
+    "category_placeholder": "Todas as Categorias",
+    "results_count": "{count} artistas encontrados",
+    "no_results": "Nenhum artista encontrado com seus critérios.",
+    "filters": "Filtros",
+    "view_profile": "Ver Perfil"
+  }
+}
