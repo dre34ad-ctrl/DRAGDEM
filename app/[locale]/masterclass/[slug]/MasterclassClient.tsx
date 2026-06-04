@@ -138,7 +138,7 @@ export default function MasterclassClient({ masterclass, locale }: MasterclassCl
                     </button>
                   </div>
                 ) : (
-                  masterclass.content.split('\n').map((para, i) => {
+                  masterclass.content.split('\n').map((para: string, i: number) => {
                     if (para.startsWith('# ')) return <h1 key={i} className="glamour-heading text-4xl md:text-5xl pt-12 pb-6">{para.replace('# ', '')}</h1>;
                     if (para.startsWith('## ')) return <h2 key={i} className="text-3xl font-playfair font-black text-primary pt-10 pb-4 italic">{para.replace('## ', '')}</h2>;
                     if (para.trim() === '') return null;

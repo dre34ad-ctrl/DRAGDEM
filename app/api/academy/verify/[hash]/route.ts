@@ -3,10 +3,10 @@ import { verifyCertificate } from '@/lib/services/academy-service';
 
 export async function GET(
   request: Request,
-  { params }: { params: { hash: string } }
+  { params }: { params: Promise<{ hash: string }> }
 ) {
   try {
-    const hash = params.hash;
+    const { hash } = await params;
 
     if (!hash) {
       return NextResponse.json({ error: 'Missing hash' }, { status: 400 });

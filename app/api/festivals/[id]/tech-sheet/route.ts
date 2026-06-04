@@ -4,8 +4,10 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  // We await params even if we don't use id directly, for consistency and types
+  await params;
   const { searchParams } = new URL(request.url);
   const stageId = searchParams.get('stageId');
   const date = searchParams.get('date');

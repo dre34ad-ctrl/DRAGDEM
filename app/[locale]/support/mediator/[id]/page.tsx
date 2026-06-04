@@ -2,8 +2,8 @@ import { getDisputeWithEvidence } from '@/lib/supabase/dispute';
 import { MediatorWorkbench } from '@/components/support/MediatorWorkbench';
 import { notFound } from 'next/navigation';
 
-export default async function MediatorPage({ params }: { params: { id: string, locale: string } }) {
-  const { id } = params;
+export default async function MediatorPage({ params }: { params: Promise<{ id: string, locale: string }> }) {
+  const { id } = await params;
   
   try {
     const dispute = await getDisputeWithEvidence(id);

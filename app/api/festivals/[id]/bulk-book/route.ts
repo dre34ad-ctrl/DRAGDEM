@@ -4,9 +4,9 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const festivalId = params.id;
+  const { id: festivalId } = await params;
   const body = await request.json();
   const { stageId, bookings } = body;
 
