@@ -288,7 +288,7 @@ export default function BookingPage() {
                 {fees.kskLiabilityAmount > 0 && (
                   <div className="flex justify-between items-center text-accent">
                     <span className="text-sm font-medium flex items-center gap-1">
-                      KSK Social Contribution (5%) <Info size={12} title="Mandatory for German venues hiring artists" />
+                      KSK Social Contribution (5%) <Info size={12} />
                     </span>
                     <span className="font-bold">{CURRENCIES[currency].symbol}{fees.kskLiabilityAmount.toFixed(2)}</span>
                   </div>
@@ -297,7 +297,7 @@ export default function BookingPage() {
                 {fees.gusoLiabilityAmount > 0 && (
                   <div className="flex justify-between items-center text-accent">
                     <span className="text-sm font-medium flex items-center gap-1">
-                      GUSO Social Contributions (~35%) <Info size={12} title="Mandatory for one-off bookings in France" />
+                      GUSO Social Contributions (~35%) <Info size={12} />
                     </span>
                     <span className="font-bold">{CURRENCIES[currency].symbol}{fees.gusoLiabilityAmount.toFixed(2)}</span>
                   </div>

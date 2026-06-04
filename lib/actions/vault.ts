@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import * as vaultService from '@/lib/supabase/vault';
+export type { VaultAsset } from '@/lib/supabase/vault';
 
 /**
  * Fetches all assets in a performer's vault (Public).
