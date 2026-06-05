@@ -9,7 +9,6 @@ export default createMiddleware({
 });
 
 export const config = {
-  // Match all pathnames including the root /
-  // and specific locale prefixes
-  matcher: ['/', '/(en|de|fr|mx|br|pt|th|jp|it|il|es|pl|sv|no|da|ko|vi|ar|zh|ph|he|kr)/:path*']
+  // Match only internationalized pathnames
+  matcher: ['/', '/(en|de|fr|mx|br|pt|th|jp|it|il|es|pl|sv|no|da|ko|vi|ar|zh|ph|he|kr)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)']
 };
