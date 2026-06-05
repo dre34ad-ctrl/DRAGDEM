@@ -9,9 +9,7 @@ export default createMiddleware({
 });
 
 export const config = {
-  // Match all pathnames except for
-  // - /api (API routes)
-  // - /_next (Next.js internals)
-  // - /.* (files in public directory, e.g. /favicon.ico)
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Match all pathnames including the root /
+  // and specific locale prefixes
+  matcher: ['/', '/(en|de|fr|mx|br|pt|th|jp|it|il|es|pl|sv|no|da|ko|vi|ar|zh|ph|he|kr)/:path*']
 };
