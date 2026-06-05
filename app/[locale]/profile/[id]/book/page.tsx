@@ -60,6 +60,7 @@ export default function BookingPage() {
     taxRegime: "RETA",
     vatRate: 0.21,
     nationalId: "ES12345678X", 
+    institutionalBadge: true, // Sasha is a verified Pro
   };
 
   const fees = useMemo(() => {
@@ -73,6 +74,7 @@ export default function BookingPage() {
       performerRegion: performer.region,
       seekerRegion: selectedRegion,
       isB2B,
+      isInstitutional: performer.institutionalBadge,
       performerTaxRegime: performerRegime,
       performerVatRate: performer.vatRate,
       hasVerifiedABN: !!performer.nationalId && performer.region === 'AU',
@@ -288,7 +290,7 @@ export default function BookingPage() {
                 {fees.kskLiabilityAmount > 0 && (
                   <div className="flex justify-between items-center text-accent">
                     <span className="text-sm font-medium flex items-center gap-1">
-                      KSK Social Contribution (5%) <Info size={12} />
+                      KSK Social Contribution (5%) <Info size={12} title="Mandatory for German venues hiring artists" />
                     </span>
                     <span className="font-bold">{CURRENCIES[currency].symbol}{fees.kskLiabilityAmount.toFixed(2)}</span>
                   </div>
@@ -297,7 +299,7 @@ export default function BookingPage() {
                 {fees.gusoLiabilityAmount > 0 && (
                   <div className="flex justify-between items-center text-accent">
                     <span className="text-sm font-medium flex items-center gap-1">
-                      GUSO Social Contributions (~35%) <Info size={12} />
+                      GUSO Social Contributions (~35%) <Info size={12} title="Mandatory for one-off bookings in France" />
                     </span>
                     <span className="font-bold">{CURRENCIES[currency].symbol}{fees.gusoLiabilityAmount.toFixed(2)}</span>
                   </div>
@@ -305,7 +307,9 @@ export default function BookingPage() {
 
                 {fees.seekerPlatformFee > 0 && (
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm font-medium">Platform Service Fee ({(fees.seekerPlatformFee / fees.subtotal * 100).toFixed(1)}%)</span>
+                    <span className="text-gray-400 text-sm font-medium">
+                      {performer.institutionalBadge ? 'Institutional Pro Fee' : 'Platform Service Fee'} ({(fees.seekerPlatformFee / fees.subtotal * 100).toFixed(1)}%)
+                    </span>
                     <span className="font-bold">{CURRENCIES[currency].symbol}{fees.seekerPlatformFee.toFixed(2)}</span>
                   </div>
                 )}
