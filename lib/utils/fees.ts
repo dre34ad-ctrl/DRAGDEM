@@ -3,6 +3,7 @@ export interface FeeCalculationParams {
   performerRegion: string;
   seekerRegion: string;
   isB2B?: boolean;
+  isInstitutional?: boolean;
   performerTaxRegime?: string;
   performerVatRate?: number; 
   totalRevenueYTD?: number;
@@ -16,6 +17,7 @@ export function calculateFees({
   performerRegion,
   seekerRegion,
   isB2B = false,
+  isInstitutional = false,
   performerTaxRegime,
   performerVatRate = 0,
   totalRevenueYTD = 0,
@@ -23,7 +25,8 @@ export function calculateFees({
   isLaborOnly = false,
   hasTNumber = false,
 }: FeeCalculationParams) {
-  const platformFeePercent = amount > 1000 ? 0.003 : 0.15;
+  // Competitive 0.3% rate for high-volume institutional contracts or bookings > 1000
+  const platformFeePercent = (amount > 1000 || isInstitutional) ? 0.003 : 0.15;
   const performerPlatformFee = amount * platformFeePercent;
   const seekerPlatformFee = amount * platformFeePercent;
   
@@ -40,8 +43,6 @@ export function calculateFees({
   // 1. VAT / GST / Consumption Tax Logic
   let appliedVatRate = performerVatRate;
 
-  // ... (rest of VAT logic)
-
   // Thailand VAT Threshold (1.8M THB)
   if (performerRegion === 'TH' && totalRevenueYTD > 1800000 && appliedVatRate === 0) {
     appliedVatRate = 0.07; // Default 7% if threshold reached
@@ -53,13 +54,11 @@ export function calculateFees({
   }
 
   // Australia GST (10%)
-  // Typically businesses with turnover > $75k must register for GST
   if (performerRegion === 'AU' && totalRevenueYTD > 75000 && appliedVatRate === 0) {
     appliedVatRate = 0.10;
   }
 
   // Japan Consumption Tax (10%)
-  // Requires T-Number registration
   if (performerRegion === 'JP' && hasTNumber && appliedVatRate === 0) {
     appliedVatRate = 0.10;
   }
@@ -127,7 +126,6 @@ export function calculateFees({
 
   // France: GUSO Liability
   if (performerRegion === 'FR' && performerTaxRegime === 'GUSO') {
-    // Estimating GUSO social contributions at 35% for the employer (seeker)
     gusoLiabilityPercent = 0.35;
   }
 
@@ -138,7 +136,6 @@ export function calculateFees({
       withholdingsList.push({ name: 'ABN Withholding (47%)', amount: abnWithholdingAmount });
     }
     
-    // Superannuation Guarantee (11.5%) applies for labor-only contracts in AU
     if (isLaborOnly) {
       superannuationPercent = 0.115;
     }

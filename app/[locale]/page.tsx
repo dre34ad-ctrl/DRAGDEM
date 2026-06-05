@@ -6,6 +6,12 @@ import { getSearchMetadata } from "@/components/seo/SearchSEO";
 import { useTranslations } from "next-intl";
 import type { Metadata } from 'next';
 
+const locales = ['en', 'de', 'fr', 'mx', 'br', 'pt', 'th', 'jp', 'it', 'il', 'es', 'pl', 'sv', 'no', 'da', 'ko', 'vi', 'ar', 'zh', 'ph', 'he', 'kr'];
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   return getSearchMetadata({ locale });
