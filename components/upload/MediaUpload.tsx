@@ -41,10 +41,10 @@ export const MediaUpload = ({
         access: 'public',
         handleUploadUrl: '/api/upload', // We'll draft the server side too
         clientPayload: JSON.stringify({ category }),
-        onUploadProgress: (progressEvent) => {
+        onUploadProgress: (progressEvent: any) => {
           setProgress(progressEvent.percentage);
         },
-      });
+      } as any);
 
       onUploadComplete(newBlob.url);
     } catch (error) {

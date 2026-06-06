@@ -61,9 +61,10 @@ export class FestivalPayoutService {
     for (const job of jobs) {
       try {
         await this.executeJob(job);
-      } catch (error) {
+      } catch (error: any) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
         console.error(`[FestivalPayoutService] Fatal error on job ${job.id}:`, error);
-        await this.failJob(job.id, error.message);
+        await this.failJob(job.id, errorMessage);
       }
     }
   }
@@ -92,15 +93,16 @@ export class FestivalPayoutService {
         lockHash
       );
 
-      if (result.success) {
-        await this.completeJob(job.id, lockId, result.ref || result.transactionId);
+      if (result && (result as any).success) {
+        await this.completeJob(job.id, lockId, (result as any).ref || (result as any).transactionId || (result as any).reference);
       } else {
-        await this.failJob(job.id, result.error);
+        await this.failJob(job.id, (result as any)?.error || 'Unknown error');
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error(`[FestivalPayoutService] Error during PayoutEngine execution for job ${job.id}:`, error);
-      await this.failJob(job.id, error.message);
-      // We don't release the lock here yet to prevent immediate retry by another worker 
+      await this.failJob(job.id, errorMessage);
+      // We don't release the lock here yet to prevent immediate retry by another worker
       // if the provider might have actually processed it.
     }
   }

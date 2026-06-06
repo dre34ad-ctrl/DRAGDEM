@@ -47,7 +47,7 @@ export async function POST(request: Request): Promise<NextResponse> {
               url: blob.url,
               metadata: JSON.stringify({
                 originalName: blob.pathname,
-                size: blob.size,
+                size: (blob as any).size,
                 contentType: blob.contentType
               })
             });

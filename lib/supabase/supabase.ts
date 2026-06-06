@@ -13,6 +13,7 @@ if (isMock) {
 export const supabase = isMock ? {
   auth: {
     getSession: async () => ({ data: { session: null }, error: null }),
+    getUser: async () => ({ data: { user: null }, error: null }),
     onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
   },
   from: () => ({
@@ -24,5 +25,9 @@ export const supabase = isMock ? {
         }),
       }),
     }),
+    update: () => ({
+      eq: async () => ({ data: null, error: null }),
+    }),
+    insert: async () => ({ data: null, error: null }),
   }),
 } : createClient(supabaseUrl, supabaseAnonKey);

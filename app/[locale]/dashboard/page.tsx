@@ -3,6 +3,7 @@ import { getProDashboardData } from "@/lib/actions/pro-dashboard";
 import ProDashboardClient from "@/components/dashboard/ProDashboardClient";
 import BaseDashboard from "@/components/dashboard/BaseDashboard";
 import FestivalRosterManager from "@/components/dashboard/FestivalRosterManager";
+import InstitutionalPortal from "@/components/dashboard/InstitutionalPortal";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
@@ -47,9 +48,19 @@ export default async function DashboardPage() {
             </p>
           </header>
           
-          <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 border border-luxury-gold/10">
-            <FestivalRosterManager />
-          </div>
+            <div className="space-y-12">
+              <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 border border-luxury-gold/10">
+                <FestivalRosterManager />
+              </div>
+              
+              <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 border border-luxury-gold/10 bg-luxury-gold/[0.02]">
+                <header className="mb-12">
+                  <h2 className="text-3xl font-playfair font-bold text-white italic">INSTITUTIONAL <span className="glamour-heading">PORTAL</span></h2>
+                  <p className="text-gray-500 text-xs uppercase tracking-widest mt-2">Compliance, Billing & Verification</p>
+                </header>
+                <InstitutionalPortal />
+              </div>
+            </div>
         </div>
       </main>
     );

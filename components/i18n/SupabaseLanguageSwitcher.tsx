@@ -23,7 +23,7 @@ export const SupabaseLanguageSwitcher = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await (supabase.auth as any).getUser();
       if (user) {
         setUserId(user.id);
       }
@@ -36,8 +36,8 @@ export const SupabaseLanguageSwitcher = () => {
     setIsOpen(false);
     
     if (userId) {
-      await supabase
-        .from('users')
+      await (supabase
+        .from('users') as any)
         .update({ preferred_language: code })
         .eq('id', userId);
     }
