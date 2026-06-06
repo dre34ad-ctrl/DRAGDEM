@@ -1,11 +1,17 @@
 import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
 
-export default createMiddleware({
-  locales: ['en', 'de', 'fr', 'mx', 'br', 'pt', 'th', 'jp', 'it', 'il', 'es', 'pl', 'sv', 'no', 'da', 'ko', 'vi', 'ar', 'zh', 'ph', 'he', 'kr'],
-  defaultLocale: 'en',
-  localePrefix: 'always'
-});
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: ['/', '/(en|de|fr|mx|br|pt|th|jp|it|il|es|pl|sv|no|da|ko|vi|ar|zh|ph|he|kr)/:path*']
+  // Match only internationalized pathnames
+  matcher: [
+    // Match all pathnames except for
+    // - API routes
+    // - Static files (_next, images, etc.)
+    // - Vercel analytics/etc
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    // Match the root
+    '/'
+  ]
 };
