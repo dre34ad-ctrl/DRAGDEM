@@ -1,6 +1,6 @@
 import { Montserrat, Inter, Playfair_Display } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '../../i18n/routing';
 import '../globals.css';
@@ -20,6 +20,10 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export const metadata = {
   title: "DRAGDEM | Professional Backend for Drag Excellence",
   description: "Asset management, booking, and media kits for the modern drag performer.",
@@ -38,6 +42,9 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   // Providing all messages to the client side
   const messages = await getMessages();

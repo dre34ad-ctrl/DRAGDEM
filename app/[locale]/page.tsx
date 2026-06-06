@@ -1,3 +1,5 @@
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "../../i18n/routing";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { Sparkles, ArrowRight, Shield, Zap, Globe, Star, Play } from "lucide-react";
@@ -14,17 +16,20 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   return getSearchMetadata({ locale });
 }
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = useTranslations("home");
 
   return (
     <main className="min-h-screen bg-black text-white selection:bg-primary selection:text-white">
       <WelcomeTrigger />
       <Navbar />
-      
+
       {/* Ticker for Global Pulse vibe */}
       <div className="ticker-wrap fixed top-[72px] z-40">
         <div className="ticker-content">
@@ -39,163 +44,65 @@ export default function Home() {
       {/* Hero Section with Stage Lighting */}
       <section className="relative pt-48 pb-32 overflow-hidden stage-lighting-top">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('/noise.png')] opacity-20 pointer-events-none mix-blend-overlay" />
-        
+
         {/* Cinematic Backdrop Elements */}
         <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-crimson-velvet/10 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-royal-purple/5 blur-[120px] rounded-full" />
 
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-black/80 border border-luxury-gold text-luxury-gold text-xs font-black mb-16 shadow-glow-gold animate-fade-in tracking-[0.4em] uppercase">
-            <Star size={14} className="fill-luxury-gold" />
-            <span>{t("hero_badge")}</span>
-            <Star size={14} className="fill-luxury-gold" />
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-deep-charcoal border border-white/10 mb-12 animate-fade-in shadow-glow-magenta/20">
+            <Sparkles className="text-primary animate-pulse" size={20} />
+            <span className="text-sm font-bold tracking-widest uppercase">International Performer Network</span>
           </div>
-          
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-playfair font-black mb-6 md:mb-10 tracking-tight leading-[1.1] italic animate-slide-up">
-            {t("hero_title_1")}<br />
-            <span className="relative inline-block mt-4 md:mt-2">
-              {/* Prestige Glow Layer */}
-              <span 
-                className="absolute inset-0 blur-[30px] md:blur-[60px] opacity-50 bg-luxury-gold select-none pointer-events-none"
-                aria-hidden="true"
-              ></span>
-              {/* High-Fidelity Gradient Text */}
-              <span className="relative z-10 glamour-heading py-2 block md:inline text-primary">
-                {t("hero_title_italic")}
-              </span>
-            </span>
+
+          <h1 className="glamour-heading text-6xl md:text-[11rem] italic leading-tight mb-8">
+            The Professional <br/> <span className="text-primary">Backbone</span> for Drag.
           </h1>
-          
-          <p className="text-base md:text-2xl text-gray-400 max-w-4xl mx-auto mb-10 md:mb-16 leading-relaxed font-light tracking-wide animate-fade-in [animation-delay:0.3s]">
-            {t("hero_description")}
+
+          <p className="max-w-3xl mx-auto text-gray-400 text-xl md:text-2xl mb-16 leading-relaxed font-light italic">
+            Elevate your career with enterprise-grade tools for asset management, contract compliance, and global booking.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 md:gap-10 justify-center items-center animate-fade-in [animation-delay:0.6s]">
-            <Link href="/dashboard" className="btn-prestige btn-prestige-primary px-10 py-5 md:px-16 md:py-8 text-base md:text-xl group">
-              <span className="relative z-10 flex items-center gap-4">
-                {t("cta_get_started")}
-                <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
-              </span>
+
+          <div className="flex flex-wrap justify-center gap-8">
+            <Link href="/search" className="btn-prestige btn-prestige-primary px-12 py-6 text-xl group">
+              Find Talent <ArrowRight className="inline ml-3 group-hover:translate-x-2 transition-transform" />
             </Link>
-            <Link href="/profile/sasha-sparkle" className="btn-prestige btn-prestige-gold px-10 py-5 md:px-16 md:py-8 text-base md:text-xl flex items-center gap-4">
-              <Play size={20} className="fill-luxury-gold" />
-              {t("cta_view_demo")}
+            <Link href="/onboarding" className="btn-prestige px-12 py-6 text-xl border-white/20 hover:bg-white/5">
+              Join the Collective
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Global Scale Section */}
-      <section className="py-24 bg-black relative overflow-hidden">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-primary font-bold tracking-[0.4em] uppercase text-xs mb-4">{t("markets_title")}</h2>
-          <h3 className="text-3xl md:text-5xl font-playfair italic font-bold mb-16">{t("markets_subtitle")}</h3>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 opacity-40">
-            {["Berlin", "CDMX", "Rio", "London", "Tokyo", "Bangkok", "Madrid", "Paris", "NYC", "Sydney", "Toronto", "São Paulo", "Seoul", "Chueca", "Schöneberg", "Roma Norte", "Le Marais", "Shinjuku"].map((m) => (
-              <div key={m} className="font-montserrat font-black text-sm tracking-widest hover:text-white transition-colors cursor-default">{m}</div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Economics / Commission Section */}
-      <section className="py-32 bg-[#050505] border-y border-white/5 relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-20">
-            <div className="flex-1 text-center lg:text-left space-y-8">
-              <h2 className="text-luxury-gold font-bold tracking-[0.3em] uppercase text-xs">{t("commission_title")}</h2>
-              <h3 className="text-5xl md:text-7xl font-playfair italic font-bold">
-                {t("commission_label")} <br/>
-                <span className="text-primary">{t("commission_value")}</span>
-              </h3>
-              <p className="text-gray-400 text-xl leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                {t("commission_desc")}
-              </p>
-            </div>
-            
-            <div className="flex-1 w-full max-w-2xl">
-              <div className="glass-panel p-10 rounded-[3rem] border-primary/20 relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 p-8">
-                    <Zap className="text-primary animate-pulse" size={32} />
-                 </div>
-                 
-                 <div className="space-y-12">
-                    <div className="space-y-4">
-                       <div className="flex justify-between text-xs font-black uppercase tracking-widest text-gray-500">
-                          <span>Traditional Agencies</span>
-                          <span>15% - 30%</span>
-                       </div>
-                       <div className="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-zinc-600 w-3/4 rounded-full" />
-                       </div>
-                    </div>
-                    
-                    <div className="space-y-4">
-                       <div className="flex justify-between text-xs font-black uppercase tracking-widest text-primary">
-                          <span>DRAGDEM Model</span>
-                          <span>0.3%</span>
-                       </div>
-                       <div className="h-4 w-full bg-zinc-800 rounded-full overflow-hidden p-1">
-                          <div className="h-full bg-primary w-[1%] rounded-full shadow-glow-magenta" />
-                       </div>
-                    </div>
-                 </div>
-                 
-                 <div className="mt-12 pt-12 border-t border-white/5 text-center">
-                    <span className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-600">Disrupting the Legacy Standard</span>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats / Proof Line */}
-      <section className="py-12 bg-zinc-900/50 border-b border-white/5 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-around items-center gap-8 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
-            <span className="font-montserrat font-black text-2xl">GLOBAL REACH</span>
-            <span className="font-montserrat font-black text-2xl">100% ESCROW SECURE</span>
-            <span className="font-montserrat font-black text-2xl">VERIFIED PROS</span>
-            <span className="font-montserrat font-black text-2xl">24/7 MEDIATION</span>
           </div>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="py-48 bg-black relative stage-lighting-bottom">
+      <section className="py-48 bg-black relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-32">
-            <h2 className="text-4xl md:text-6xl font-montserrat font-black mb-6 tracking-tight">DESIGNED FOR EXCELLENCE</h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full shadow-glow-magenta" />
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <FeatureCard 
-              icon={<Zap className="text-primary" size={48} />}
-              title="Digital Media Kit"
-              description="High-fidelity profiles that showcase your acts, ratings, and certifications to global agencies."
+            <FeatureCard
+              icon={<Shield size={48} className="text-primary" />}
+              title="Enterprise Security"
+              description="Your assets are protected with military-grade encryption and secure vault access."
               accent="magenta"
             />
-            <FeatureCard 
-              icon={<Shield className="text-secondary" size={48} />}
-              title="The Drag Vault"
-              description="Military-grade security for your technical riders, cue sheets, and digital performance assets."
+            <FeatureCard
+              icon={<Zap size={48} className="text-secondary" />}
+              title="Instant Settlements"
+              description="Real-time payments and automated invoicing across 22+ currencies and local systems."
               accent="cyan"
             />
-            <FeatureCard 
-              icon={<Globe className="text-luxury-gold" size={48} />}
-              title="Booking Engine"
-              description="A seamless, automated workflow for international bookings, contracts, and tax compliance."
+            <FeatureCard
+              icon={<Star size={48} className="text-luxury-gold" />}
+              title="Elite Management"
+              description="Institutional-level performer management for festivals, corporate events, and world tours."
               accent="gold"
             />
           </div>
         </div>
       </section>
 
-      {/* Showcase Section */}
-      <section className="py-48 bg-[#050505]">
+      {/* Showcase / Experience Section */}
+      <section className="py-64 bg-deep-charcoal border-y border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(218,24,132,0.05)_0%,transparent_50%)]" />
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-24">
             <div className="flex-1 space-y-10">
@@ -236,7 +143,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-royal-purple)_0%,_transparent_70%)] opacity-10" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="relative inline-block mb-16">
-            <span 
+            <span
               className="absolute inset-0 blur-[50px] opacity-30 bg-primary select-none pointer-events-none"
               aria-hidden="true"
             ></span>
