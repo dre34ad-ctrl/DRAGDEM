@@ -49,6 +49,37 @@ export class ComplianceService {
       }
     }
 
+    if (region === 'ES') {
+      const supabase = await createClient();
+      const { data: user, error } = await supabase
+        .from('users')
+        .select('tax_id, policy_acceptance_log')
+        .eq('id', userId)
+        .single();
+
+      if (error || !user || !user.tax_id) {
+        return { compliant: false, reason: 'Spanish regulations require a valid DNI/NIE for tax withholdings (IRPF).' };
+      }
+    }
+
+    if (region === 'FR') {
+      const supabase = await createClient();
+      const { data: user, error } = await supabase
+        .from('users')
+        .select('tax_id, performer_profiles(tax_regime)')
+        .eq('id', userId)
+        .single();
+
+      if (error || !user) {
+        return { compliant: false, reason: 'User not found.' };
+      }
+
+      const profile = user.performer_profiles as any;
+      if (profile?.tax_regime !== 'GUSO' && !user.tax_id) {
+        return { compliant: false, reason: 'French Auto-Entrepreneurs must provide a SIRET number for legal invoicing.' };
+      }
+    }
+
     // Add other regional compliance checks here
 
     return { compliant: true };

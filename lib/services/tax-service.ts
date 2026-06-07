@@ -99,8 +99,18 @@ export class TaxService {
       // GUSO applies for one-off bookings by non-entertainment professionals
       if (performerTaxRegime === 'GUSO') {
         // GUSO contributions are liabilities for the employer (seeker)
-        // We track it as a liability to the venue
         isLiabilityToVenue = true;
+        
+        // Detailed GUSO breakdown (Simplified for MVP)
+        // Gross = Net / 0.78 (approx)
+        // Contributions (Employer) = Gross * 0.45
+        const netAmount = amount;
+        const estimatedGross = netAmount / 0.78;
+        const employerContribs = estimatedGross * 0.45;
+        const employeeContribs = estimatedGross * 0.22;
+        
+        withholdings.push({ name: 'GUSO Employee Social (FR)', percent: 0.22 });
+        withholdings.push({ name: 'GUSO Employer Social (FR)', percent: 0.45 });
       }
     }
 
