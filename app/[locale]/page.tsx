@@ -1,11 +1,10 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "../../i18n/routing";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { Sparkles, ArrowRight, Shield, Zap, Globe, Star, Play } from "lucide-react";
 import { WelcomeTrigger } from "@/components/i18n/WelcomeTrigger";
 import { getSearchMetadata } from "@/components/seo/SearchSEO";
-import { useTranslations } from "next-intl";
 import type { Metadata } from 'next';
 
 const locales = ['en', 'de', 'fr', 'mx', 'br', 'pt', 'th', 'jp', 'it', 'il', 'es', 'pl', 'sv', 'no', 'da', 'ko', 'vi', 'ar', 'zh', 'ph', 'he', 'kr'];
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("home");
+  const t = await getTranslations("home");
 
   return (
     <main className="min-h-screen bg-black text-white selection:bg-primary selection:text-white">

@@ -5,7 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Shield, Zap, FileText, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
-export default async function InstitutionalProPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function InstitutionalProPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('InstitutionalPro');
 
   return (
@@ -18,6 +19,7 @@ export default async function InstitutionalProPage({ params: { locale } }: { par
               <span className="mx-12 text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-gold">{t('infrastructure_fee_title')}</span>
               <span className="mx-12 text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-gold">{t('berlin_ksk')}</span>
               <span className="mx-12 text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-gold">{t('paris_guso')}</span>
+              <span className="mx-12 text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-gold">{t('madrid_reta')}</span>
               <span className="mx-12 text-[10px] font-bold uppercase tracking-[0.3em] text-luxury-gold">{t('labor_dignity_title')}</span>
             </div>
           ))}
@@ -115,8 +117,9 @@ export default async function InstitutionalProPage({ params: { locale } }: { par
                 {[
                   { title: "Berlin KSK", text: t('berlin_ksk') },
                   { title: "Paris GUSO", text: t('paris_guso') },
+                  { title: "Madrid RETA", text: t('madrid_reta') },
                   { title: "London VAT", text: t('london_vat') }
-                ].map((item, i) => (
+                  ].map((item, i) => (
                   <li key={i} className="flex items-center gap-4">
                     <CheckCircle2 className="w-6 h-6 text-cyan-400 shrink-0" />
                     <span className="text-lg font-medium">{item.text}</span>
@@ -190,6 +193,7 @@ export default async function InstitutionalProPage({ params: { locale } }: { par
                   <option className="bg-neutral-900">London (VAT Framework)</option>
                   <option className="bg-neutral-900">NYC (DCLA Grant Readiness)</option>
                   <option className="bg-neutral-900">CDMX (RESICO Bridge)</option>
+                  <option className="bg-neutral-900">Madrid (Agencia Tributaria Sync)</option>
                 </select>
               </div>
               <Button size="lg" className="w-full bg-primary py-8 text-sm font-bold uppercase tracking-[0.3em]">
