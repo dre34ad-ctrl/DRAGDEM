@@ -1,0 +1,16 @@
+[
+  {
+    "id": "b29a5fbc-5fd4-48cf-9f59-fa2d1aa00d06",
+    "title": "RESEARCH: NYC & Rio Market Mapping (Phase 13)",
+    "description": "Perform market mapping and 'Fiscal Hook' identification for New York City and Rio de Janeiro (Phase 13).\n1. Identify top 20 high-volume venues and management agencies in NYC and Rio.\n2. Define the 'Fiscal Hook' for each:\n   - NYC: DCLA grant alignment, insurance (PLI) automation, or specific US tax withholding (W-9/1099) friction.\n   - Rio: MEI/Pix automation or local municipal culture grants (Lei Paulo Gustavo/Aldir Blanc alignment).\n3. Update the global contact directory with verified leads.",
+    "status": "in-progress",
+    "assigned_to": "agent-researcher"
+  },
+  {
+    "id": "59e26da4-03dd-4ba4-a18d-d7a6899fa624",
+    "title": "IMPLEMENT: CDMX, Rio, NYC City Pages (Phase 13)",
+    "description": "Implement high-fidelity localized landing pages for CDMX, Rio de Janeiro, and NYC. Use the assets provided by the designer in the shared directory. Ensure fiscal compliance modules (RESICO for CDMX, etc.) are integrated into the city-specific tickers. Reference existing Paris/Madrid pages for structure.",
+    "status": "in-progress",
+    "assigned_to": "agent-senior-engineer"
+  }
+]

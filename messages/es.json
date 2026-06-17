@@ -1,0 +1,113 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "verified": "Verified"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "vault": "The Vault",
+    "search": "Search",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "welcome": {
+    "title": "Welcome to DRAGDEM",
+    "description": "Select your preferred language and currency to continue.",
+    "save_continue": "Save & Continue",
+    "continue_english": "Continue in English"
+  },
+  "auth": {
+    "login_title": "Login to DRAGDEM",
+    "signup_cta": "Join the standard for drag excellence",
+    "email": "Email Address",
+    "password": "Password"
+  },
+  "performer": {
+    "vault_title": "The Drag Vault",
+    "add_asset": "Add Asset",
+    "vault_description": "Manage your high-fidelity act reels, music, and professional assets.",
+    "stage_name": "Stage Name",
+    "drag_style": "Drag Style",
+    "drag_queen_option": "Drag Queen",
+    "drag_king_option": "Drag King",
+    "bio_queen_option": "Bio-Queen",
+    "transformista_option": "Transformista",
+    "two_spirit_option": "2-Spirit",
+    "katoey_option": "Katoey",
+    "new_badge": "New"
+  },
+  "seeker": {
+    "verification_title": "Seeker Verification",
+    "corporate_partner": "Corporate Partner",
+    "tax_id": "Tax ID / VAT",
+    "brazil_nfse": "Nota Fiscal Eletrônica (NFS-e)",
+    "thailand_wht": "Withholding Tax (WHT) / 50 Tawi",
+    "start_onboarding": "Start Onboarding"
+  },
+  "booking": {
+    "wizard_step_1": "Event Context",
+    "wizard_step_2": "Service & Currency",
+    "wizard_step_3": "Technical Agreement",
+    "technical_rider": "Technical Rider",
+    "cue_sheet": "Cue Sheet",
+    "accept_agreement": "I have reviewed the performance cues and confirm my technical team can execute them."
+  },
+  "support": {
+    "dispute_center": "Dispute Center",
+    "mediator_workbench": "Mediator Workbench",
+    "release_funds": "Release Funds",
+    "full_refund": "Full Refund",
+    "partial_refund": "Partial Refund %",
+    "case_id": "Case",
+    "priority": "Priority",
+    "escrow_vault": "Escrow Asset Vault",
+    "locked": "LOCKED",
+    "binding_agreement": "Binding Agreement",
+    "technical_rider": "Technical Rider",
+    "cue_sheet_highlights": "Cue Sheet Highlights",
+    "seeker_claim": "Seeker Claim",
+    "performer_rebuttal": "Performer Rebuttal",
+    "external_chat": "External Party Communication",
+    "immutable_log": "Immutable Log",
+    "action_matrix": "Action Matrix",
+    "internal_notes": "Internal Mediator Notes",
+    "private": "PRIVATE",
+    "finalize_resolution": "Execute Final Resolution"
+  },
+  "legal": {
+    "safety_exit_title": "Safety-Exit Guarantee",
+    "safety_exit_summary": "Performer retains 100% payout if exiting due to verified safety threats.",
+    "asf_clause_title": "Anti-Social Forces (ASF) Exclusion Clause",
+    "asf_clause_description": "Performer and Seeker represent and warrant that they are not members of or associated with Anti-Social Forces (Yakuza). Immediate contract termination applies for any breach.",
+    "kill_fee_title": "Cancellation Policy",
+    "kill_fee_7_14": "50% fee for 7-14 day cancellations",
+    "kill_fee_under_7": "100% fee for less than 7 days",
+    "escrow_info": "Funds are held in escrow and released 48h after the show."
+  },
+  "home": {
+    "hero_badge": "THE PROFESSIONAL BACKBONE FOR DRAG",
+    "hero_title_1": "DRAG IS ",
+    "hero_title_italic": "BUSINESS.",
+    "hero_description": "Stop managing your empire from a spreadsheet. The first all-in-one platform for professional performers to manage bookings, assets, and media kits.",
+    "cta_get_started": "GET STARTED FREE",
+    "cta_view_demo": "VIEW DEMO PROFILE"
+  },
+  "search": {
+    "title": "Discover Talent",
+    "query_placeholder": "Search by stage name...",
+    "location_placeholder": "All Locations",
+    "category_placeholder": "All Categories",
+    "results_count": "{count} performers found",
+    "no_results": "No performers found matching your criteria.",
+    "filters": "Filters",
+    "view_profile": "View Profile"
+  }
+}

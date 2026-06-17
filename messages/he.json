@@ -1,0 +1,18 @@
+{
+  "common": {
+    "save": "שמור",
+    "confirm": "אשר"
+  },
+  "search": {
+    "title": "גלה כישרונות",
+    "results_count": "{count} אמנים נמצאו",
+    "no_results": "לא נמצאו אמנים."
+  },
+  "onboarding": {
+    "israel_title": "ישראל: תעודת זהות ושבת",
+    "national_id_il_label": "מספר תעודת זהות",
+    "israel_business_label": "עסק מורשה",
+    "israel_business_description": "אני עסק מורשה (עוסק פטור/מורשה)",
+    "shabbat_notice": "חיי הלילה פעילים ביותר במהלך השבת, אך אנא תאמו שמירת מצוות עם המקומות."
+  }
+}

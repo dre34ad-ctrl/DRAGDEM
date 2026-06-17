@@ -1,0 +1,13 @@
+{
+  "common": {
+    "save": "שמור",
+    "cancel": "ביטול",
+    "edit": "ערוך",
+    "delete": "מחק",
+    "next": "הבא",
+    "back": "חזור",
+    "submit": "שלח",
+    "confirm": "אשר",
+    "verified": "מאומת"
+  }
+}

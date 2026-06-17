@@ -55,6 +55,11 @@ const CITY_BENCHMARKS: Record<string, LDIBenchmark> = {
     currency: 'BRL',
     compliance_requirements: ['MEI NFS-e Automation', 'Pix Instant Payout', 'Riotur Data Bridge']
   },
+  'NYC': {
+    dignity_standard: 150,
+    currency: 'USD',
+    compliance_requirements: ['FIFA Contract Compliance', 'W-9 Automation', '30-Day Payment Tracking']
+  },
   'Bangkok': {
     dignity_standard: 2000,
     currency: 'THB',
@@ -75,6 +80,28 @@ const SAFE_CITY_PROTOCOLS: Record<string, string> = {
 };
 
 const REGULATORY_DEMO_DATA: Record<string, any> = {
+  'NYC': {
+    bridge_name: 'NYC FIFA Compliance Bridge',
+    active_tokens: '5,820',
+    total_tax_collected: '$ 185,400',
+    compliance_status: '96%',
+    highlights: [
+      { label: 'FIFA Contracts', value: 'Automated' },
+      { label: '30-Day Payments', value: 'Tracked' },
+      { label: 'DCLA Alignment', value: 'Ready' }
+    ]
+  },
+  'CDMX': {
+    bridge_name: 'SAT RESICO / CFDI Bridge',
+    active_tokens: '2,450',
+    total_tax_collected: '$ 245,000 MXN',
+    compliance_status: '91%',
+    highlights: [
+      { label: 'RESICO Withholding', value: '1.25%' },
+      { label: 'CFDI 4.0', value: 'Validated' },
+      { label: 'SAT Direct Sync', value: 'Live' }
+    ]
+  },
   'Rio': {
     bridge_name: 'NFS-e / MEI Bridge',
     active_tokens: '4,280',
