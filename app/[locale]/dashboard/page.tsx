@@ -5,6 +5,7 @@ import BaseDashboard from "@/components/dashboard/BaseDashboard";
 import FestivalRosterManager from "@/components/dashboard/FestivalRosterManager";
 import InstitutionalPortal from "@/components/dashboard/InstitutionalPortal";
 import { redirect } from "next/navigation";
+import { getPerformerVerification, awardVerification } from "@/lib/actions/verifications";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -25,6 +26,12 @@ export default async function DashboardPage() {
 
   // Case 1: Professional Performers
   if (userData?.subscription_tier === 'pro') {
+    // Sync verification status if they are pro
+    const verification = await getPerformerVerification(user.id);
+    if (!verification || !verification.is_verified) {
+      await awardVerification(user.id, 'stripe');
+    }
+
     const dashboardData = await getProDashboardData();
     return <ProDashboardClient data={dashboardData} userName={userName} />;
   }

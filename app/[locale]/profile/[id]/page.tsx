@@ -9,6 +9,8 @@ import { getVaultAssets } from "@/lib/actions/vault";
 import { getPulsePosts } from "@/lib/actions/pulse";
 import { createClient } from "@/lib/supabase/server";
 import SafeCityBadge from "@/components/dashboard/SafeCityBadge";
+import { getPerformerVerification, refreshDignitySeal } from "@/lib/actions/verifications";
+import { ProfileBadges } from "@/components/profile/ProfileBadges";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string, locale: string }> }): Promise<Metadata> {
   const { id, locale } = await params;
@@ -37,6 +39,13 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     .select('institutional_badge, search_priority')
     .eq('id', id)
     .single();
+
+  const verifications = await getPerformerVerification(id);
+  
+  // Refresh dignity seal in the background or during request if needed
+  if (id) {
+    await refreshDignitySeal(id);
+  }
 
   const vaultAssets = await getVaultAssets(id);
 
@@ -93,10 +102,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                 <h1 className="text-7xl md:text-8xl font-playfair font-bold text-white italic tracking-tighter drop-shadow-2xl">{profile.stage_name}</h1>
                 <div className="flex items-center gap-3">
                   {profile.institutional_badge && <SafeCityBadge type="performer" />}
-                  <div className="flex items-center gap-2 bg-luxury-gold/10 border border-luxury-gold/30 px-5 py-2 rounded-full shadow-glow-gold/5">
-                    <BadgeCheck className="text-luxury-gold" size={24} />
-                    <span className="text-luxury-gold text-xs font-black uppercase tracking-[0.2em]">Verified Pro</span>
-                  </div>
+                  <ProfileBadges 
+                    isVerified={verifications?.is_verified || false} 
+                    hasDignitySeal={verifications?.has_dignity_seal || false} 
+                  />
                 </div>
               </div>
               <p className="text-3xl text-gray-300 flex items-center gap-4 font-light italic mb-10">
