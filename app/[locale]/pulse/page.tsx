@@ -1,5 +1,7 @@
 import PulseClient from "./PulseClient";
 import type { Metadata } from "next";
+import { promises as fs } from 'fs';
+import path from 'path';
 
 export async function generateMetadata({ 
   params 
@@ -8,7 +10,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   
-  // Define regions for description based on locale
   const regionNames: Record<string, string> = {
     en: "Global",
     de: "German",
@@ -28,5 +29,17 @@ export async function generateMetadata({
 }
 
 export default async function PulsePage() {
-  return <PulseClient />;
+  let safeCityData = [];
+  try {
+    const filePath = path.join(process.cwd(), '../../../shared/safe_city_index_data.json');
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    const json = JSON.parse(fileContent);
+    safeCityData = json.safe_city_index;
+  } catch (error) {
+    console.error('Error reading safe city data:', error);
+    // Fallback data if file not found in build context
+    safeCityData = [];
+  }
+
+  return <PulseClient safeCityData={safeCityData} />;
 }

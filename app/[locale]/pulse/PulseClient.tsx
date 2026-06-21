@@ -1,15 +1,21 @@
-
 'use client';
 
 import Navbar from "@/components/Navbar";
 import { PulseHero } from "@/components/pulse/PulseHero";
 import { MagazineGrid } from "@/components/pulse/MagazineGrid";
 import { TrendingSidebar } from "@/components/pulse/TrendingSidebar";
+import { SafeCityIndex } from "@/components/pulse/SafeCityIndex";
+import { NewsAggregator } from "@/components/pulse/NewsAggregator";
 import { ARTICLES } from "@/lib/editorial/articles";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { ShieldAlert, BarChart3, Users } from "lucide-react";
 
-export default function PulsePage() {
+interface PulseClientProps {
+  safeCityData: any[];
+}
+
+export default function PulseClient({ safeCityData }: PulseClientProps) {
   const { locale } = useParams();
   
   const FEATURED_ARTICLE = ARTICLES.find(a => a.id === 'london-liberty') || ARTICLES[0];
@@ -57,15 +63,64 @@ export default function PulsePage() {
         </Link>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 mt-12">
-          <div className="lg:col-span-2">
-            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-gray-500 border-b border-gray-800 pb-4 mb-8">
-              Latest Stories
-            </h2>
-            <MagazineGrid articles={REMAINING_ARTICLES} />
+          <div className="lg:col-span-2 space-y-20">
+            <section>
+              <h2 className="text-xs font-black uppercase tracking-[0.3em] text-gray-500 border-b border-white/5 pb-4 mb-8">
+                Latest Stories
+              </h2>
+              <MagazineGrid articles={REMAINING_ARTICLES} />
+            </section>
+
+            <section id="safety-index">
+              <SafeCityIndex data={safeCityData} />
+            </section>
           </div>
           
-          <aside>
+          <aside className="space-y-12">
+            <div className="bg-zinc-900/50 border border-white/5 rounded-3xl p-8 backdrop-blur-xl">
+               <div className="flex items-center gap-3 mb-6">
+                 <ShieldAlert className="text-pink-500" size={20} />
+                 <h3 className="text-white font-black uppercase tracking-widest text-xs">Verified Safety</h3>
+               </div>
+               <p className="text-gray-500 text-[11px] leading-relaxed mb-6">
+                 Have you experienced a venue firsthand? Help the community by contributing to our Safety Index.
+               </p>
+               <div className="flex flex-col gap-3">
+                 <Link 
+                  href={`/${locale}/community/safety`}
+                  className="w-full inline-flex items-center justify-center py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all"
+                 >
+                   View Safety Index
+                 </Link>
+                 <Link 
+                  href={`/${locale}/community/safety/report`}
+                  className="w-full inline-flex items-center justify-center py-3 bg-pink-600 hover:bg-pink-500 text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all shadow-glow-pink/20"
+                 >
+                   Report an Incident
+                 </Link>
+               </div>
+            </div>
+
+            <NewsAggregator />
+
             <TrendingSidebar items={TRENDING} />
+
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-cyan-900/20 to-transparent border border-cyan-500/20">
+              <div className="flex items-center gap-2 mb-4">
+                <BarChart3 className="text-cyan-400" size={16} />
+                <h3 className="text-white font-bold uppercase tracking-widest text-xs">Hub Stats</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex justify-between items-end">
+                  <span className="text-gray-500 text-[10px] uppercase">Active Readers</span>
+                  <span className="text-cyan-400 font-mono text-xl font-bold">4,210</span>
+                </div>
+                <div className="flex justify-between items-end">
+                  <span className="text-gray-500 text-[10px] uppercase">Verified Sources</span>
+                  <span className="text-cyan-400 font-mono text-xl font-bold">128</span>
+                </div>
+              </div>
+            </div>
           </aside>
         </div>
       </div>
