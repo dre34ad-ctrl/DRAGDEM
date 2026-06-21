@@ -1,0 +1,30 @@
+Starting Smoke Test for Payment Flow (Phase 13)...
+
+--- Mexico B2B RESICO Test ---
+Input Amount: 1000
+Subtotal: 1000
+Seeker Platform Fee (0.3%): 3
+Performer Platform Fee (0.3%): 3
+VAT Amount (16%): 160
+Withholdings: [
+  { name: 'ISR (MX)', amount: 12.5 },
+  { name: 'IVA Withholding (MX)', amount: 106.6 }
+]
+Total Withholdings: 119.1
+Net Payout: 877.9
+Total Paid by Seeker: 1163
+Expected Platform Revenue (before Stripe costs): 6
+PASS: ISR calculation correct
+PASS: IVA Withholding calculation correct
+
+--- France Private GUSO Test ---
+Input Amount: 1000
+GUSO Liability Amount (35%): 350
+Net Payout: 997
+PASS: GUSO liability correct
+
+--- Payout Routing Simulation ---
+Performer p1 (BR): Routes to dLocal
+Performer p2 (MX): Routes to Stripe Connect
+Performer p3 (FR): Routes to Stripe Connect
+Performer p4 (DE): Routes to Stripe Connect

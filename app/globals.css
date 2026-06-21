@@ -146,7 +146,8 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   overflow: hidden;
   background: var(--color-crimson-velvet);
-  border-y: 1px solid var(--color-luxury-gold);
+  border-top: 1px solid var(--color-luxury-gold);
+  border-bottom: 1px solid var(--color-luxury-gold);
   padding: 0.5rem 0;
 }
 
@@ -192,4 +193,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #444;
+}
+
+/* GPU-accelerated animation layer for performant transitions */
+.gpu-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Mobile-first responsive typography refinements */
+@media (max-width: 768px) {
+  .glamour-heading {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
 }

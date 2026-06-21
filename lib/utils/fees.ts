@@ -25,8 +25,8 @@ export function calculateFees({
   isLaborOnly = false,
   hasTNumber = false,
 }: FeeCalculationParams) {
-  // Competitive 0.3% rate for high-volume institutional contracts or bookings > 1000
-  const platformFeePercent = (amount > 1000 || isInstitutional) ? 0.003 : 0.15;
+  // Global 0.3% industry-disrupting margin (Phase 13 Standard)
+  const platformFeePercent = 0.003;
   const performerPlatformFee = amount * platformFeePercent;
   const seekerPlatformFee = amount * platformFeePercent;
   

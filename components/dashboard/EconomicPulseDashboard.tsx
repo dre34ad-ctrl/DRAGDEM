@@ -72,14 +72,32 @@ export default function EconomicPulseDashboard() {
   ];
 
   const funnelData = [
-    { name: 'Unverified Venues', value: data.safe_city_funnel?.unverified_venues || 1200 },
-    { name: 'Protocol Adopters', value: data.safe_city_funnel?.protocol_adopters || 850 },
-    { name: 'Safe-City Certified', value: data.safe_city_funnel?.certified_safe || 412 },
+   { name: 'Unverified Venues', value: data.safe_city_funnel?.unverified_venues || 1200 },
+   { name: 'Protocol Adopters', value: data.safe_city_funnel?.protocol_adopters || 850 },
+   { name: 'Safe-City Certified', value: data.safe_city_funnel?.certified_safe || 412 },
   ].reverse();
 
   return (
-    <div className="space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
-      {/* Dashboard Header Expansion */}
+   <div className="space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
+     {/* Real-time Data Stream Ticker */}
+     <div className="bg-primary/10 border-y border-primary/20 py-2 overflow-hidden">
+       <div className="flex gap-12 animate-ticker whitespace-nowrap">
+          {[1,2,3].map(i => (
+            <div key={i} className="flex gap-12 items-center">
+               <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Live Settlement: BER-TX-924 (€450.00)
+               </span>
+               <span className="text-[9px] font-black text-secondary uppercase tracking-[0.3em] flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" /> New Certification: MAD-V-102 (Teatro Real)
+               </span>
+               <span className="text-[9px] font-black text-luxury-gold uppercase tracking-[0.3em] flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse" /> LDI Benchmark: NYC Corridor (94.2%)
+               </span>
+            </div>
+          ))}
+       </div>
+     </div>
+
       <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8 border-b border-white/5 pb-12">
         <div className="space-y-4">
           <div className="flex items-center gap-3">

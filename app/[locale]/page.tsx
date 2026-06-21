@@ -77,24 +77,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-48 bg-black relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <FeatureCard
-              icon={<Shield size={48} className="text-primary" />}
-              title="Enterprise Security"
-              description="Your assets are protected with military-grade encryption and secure vault access."
-              accent="magenta"
-            />
-            <FeatureCard
-              icon={<Zap size={48} className="text-secondary" />}
-              title="Instant Settlements"
-              description="Real-time payments and automated invoicing across 22+ currencies and local systems."
-              accent="cyan"
-            />
-            <FeatureCard
-              icon={<Star size={48} className="text-luxury-gold" />}
-              title="Elite Management"
-              description="Institutional-level performer management for festivals, corporate events, and world tours."
-              accent="gold"
-            />
+            <div className="animate-slide-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
+              <FeatureCard
+                icon={<Shield size={48} className="text-primary" />}
+                title="Enterprise Security"
+                description="Your assets are protected with military-grade encryption and secure vault access."
+                accent="magenta"
+              />
+            </div>
+            <div className="animate-slide-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
+              <FeatureCard
+                icon={<Zap size={48} className="text-secondary" />}
+                title="Instant Settlements"
+                description="Real-time payments and automated invoicing across 22+ currencies and local systems."
+                accent="cyan"
+              />
+            </div>
+            <div className="animate-slide-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
+              <FeatureCard
+                icon={<Star size={48} className="text-luxury-gold" />}
+                title="Elite Management"
+                description="Institutional-level performer management for festivals, corporate events, and world tours."
+                accent="gold"
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
-import { Sparkles, LayoutDashboard, Database, User, Settings, Search, Menu } from "lucide-react";
+import { useState } from 'react';
+import { Sparkles, LayoutDashboard, Database, User, Settings, Search, Menu, X } from "lucide-react";
 import { SupabaseLanguageSwitcher } from "./i18n/SupabaseLanguageSwitcher";
 
 export default function Navbar() {
   const t = useTranslations('nav');
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <header className="bg-crimson-velvet border-b-2 border-luxury-gold px-4 md:px-12 py-5 flex justify-between items-center sticky top-0 z-[100] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
       {/* Subtle Texture Overlay */}
@@ -21,6 +24,7 @@ export default function Navbar() {
         </span>
       </Link>
 
+      {/* Desktop Navigation */}
       <nav className="hidden lg:flex gap-10 items-center relative z-10">
         <NavLink href="/search" icon={<Search size={18} />} label={t('search')} accent="cyan" />
         <NavLink href="/dashboard" icon={<LayoutDashboard size={18} />} label={t('dashboard')} accent="cyan" />
@@ -34,13 +38,52 @@ export default function Navbar() {
         </div>
       </nav>
 
+      {/* Mobile Hamburger */}
       <div className="lg:hidden flex items-center gap-6 relative z-10">
         <SupabaseLanguageSwitcher />
-        <button className="p-2 text-luxury-gold hover:bg-black/20 rounded-lg transition-colors">
-          <Menu size={28} />
+        <button 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="p-2 text-luxury-gold hover:bg-black/20 rounded-lg transition-colors"
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
+
+      {/* Mobile Slide-Out Menu */}
+      <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-50 transition-opacity duration-300 lg:hidden ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setMobileOpen(false)}>
+        <div className={`fixed top-0 right-0 h-full w-72 bg-deep-charcoal border-l border-luxury-gold/20 shadow-2xl transform transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`} onClick={e => e.stopPropagation()}>
+          <div className="flex justify-between items-center p-6 border-b border-luxury-gold/20">
+            <span className="font-playfair font-black text-xl text-luxury-gold italic">Menu</span>
+            <button onClick={() => setMobileOpen(false)} className="text-luxury-gold p-1 hover:bg-black/20 rounded-lg transition-colors">
+              <X size={24} />
+            </button>
+          </div>
+          <nav className="flex flex-col p-6 gap-2">
+            <MobileNavLink href="/search" icon={<Search size={20} />} label={t('search')} onClick={() => setMobileOpen(false)} />
+            <MobileNavLink href="/dashboard" icon={<LayoutDashboard size={20} />} label={t('dashboard')} onClick={() => setMobileOpen(false)} />
+            <MobileNavLink href="/vault" icon={<Database size={20} />} label={t('vault')} onClick={() => setMobileOpen(false)} />
+            <MobileNavLink href="/masterclass" icon={<Sparkles size={20} />} label="Academy" onClick={() => setMobileOpen(false)} />
+            <MobileNavLink href="/profile/sasha-sparkle" icon={<User size={20} />} label={t('profile')} onClick={() => setMobileOpen(false)} />
+            <MobileNavLink href="/settings/rates" icon={<Settings size={20} />} label={t('settings')} onClick={() => setMobileOpen(false)} />
+          </nav>
+          <div className="absolute bottom-8 left-0 right-0 px-6">
+            <div className="border-t border-luxury-gold/20 pt-6">
+              <SupabaseLanguageSwitcher />
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
+  );
+}
+
+function MobileNavLink({ href, icon, label, onClick }: { href: string, icon: React.ReactNode, label: string, onClick: () => void }) {
+  return (
+    <Link href={href} onClick={onClick} className="flex items-center gap-4 px-4 py-4 text-white/80 hover:text-white font-montserrat text-sm font-bold uppercase tracking-widest hover:bg-primary/10 rounded-xl transition-all duration-300 group">
+      <span className="text-primary group-hover:shadow-glow-magenta transition-shadow">{icon}</span>
+      <span>{label}</span>
+    </Link>
   );
 }
 

@@ -168,6 +168,9 @@
     "berlin_ksk": "Berlin KSK: Automated KSK-Abgabe reporting.",
     "paris_guso": "Paris GUSO: Integrated social contribution filings.",
     "london_vat": "London VAT: Professional invoicing for sole traders.",
+    "cdmx_resico": "CDMX RESICO: Automated SAT ISR/IVA withholding.",
+    "rio_mei": "Rio MEI: Integrated Pix & Lei Paulo Gustavo reporting.",
+    "nyc_fifa": "NYC FIFA: Automated 30-day payment compliance.",
     "real_time_fiscal": "REAL-TIME FISCAL MONITORING",
     "gold_seal_title": "Verified Labor Dignity",
     "gold_seal_desc": "Our seal is more than a badge. It's a commitment to professional excellence, safety protocols, and fair-pay standards verified by municipal partners.",
@@ -177,5 +180,52 @@
     "business_email": "Business Email",
     "interested_hub": "Interested Hub",
     "request_access": "Request Access"
+  },
+  "Paris": {
+    "title": "Paris",
+    "subtitle": "Cabaret Classique",
+    "description": "Le standard professionnel pour Divan du Monde, Madame Arthur, et toute la scène parisienne.",
+    "cta": "Explore the Standard",
+    "guso_info": "Paris GUSO: Integrated social contribution filings."
+  },
+  "Madrid": {
+    "title": "Madrid",
+    "subtitle": "Movida Madrileña",
+    "description": "El estándar profesional para la noche de Madrid. Dignidad laboral y potencia creativa.",
+    "cta": "Explora el Estándar",
+    "reta_info": "Madrid RETA: Gestión simplificada de cuotas de autónomos."
+  },
+  "CDMX": {
+    "title": "Mexico City",
+    "subtitle": "Labor Dignity",
+    "description": "We safeguard your fiscal deductibility. Automation of RESICO (1.25%) and IVA (10.67%) withholdings and real-time CFDI 4.0 validation.",
+    "cta": "Start Registration",
+    "resico_info": "CDMX RESICO: Automation of 1.25% ISR and 10.67% IVA withholdings to ensure total deductibility.",
+    "sat_sync_title": "Automatic SAT Sync",
+    "sat_sync_desc": "Protection against SAT fines ($20k MXN+). Real-time validation of CFDI 4.0, zip codes, and tax regimes to guarantee 100% deductibility.",
+    "corporate_title": "Labor Dignity",
+    "corporate_desc": "Formalizing the orange economy. We facilitate access to IMSS and professionalize fiscal identity to secure high-level corporate sponsorships."
+  },
+  "Rio": {
+    "title": "Rio de Janeiro",
+    "subtitle": "Carioca Performance",
+    "description": "Pix and MEI automation. The professional standard for Pink Flamingo, Teatro Rival, and the entire Rio scene.",
+    "cta": "Start Now",
+    "mei_info": "Rio MEI: Automation of Pix and reporting for Lei Paulo Gustavo.",
+    "pix_title": "Automatic Pix & MEI",
+    "pix_desc": "Instant settlement and NFS-e reconciliation. The standard for major stages like Pink Flamingo and Teatro Rival.",
+    "grants_title": "Lei Paulo Gustavo",
+    "grants_desc": "Institutional audit trail for grants and municipal funds. Legal security for producers and artists."
+  },
+  "NYC": {
+    "title": "New York City",
+    "subtitle": "NYC.PRO",
+    "description": "Eliminate NYC FIFA exposure. Automated compliance with the Freelance Isn't Free Act, shielding venues from double-damages and civil penalties.",
+    "cta": "Claim Your Crown",
+    "fifa_info": "NYC FIFA: Automated $800+ written contracts and 30-day payment tracking for full legal compliance.",
+    "fifa_protection_title": "FIFA Compliance Firewall",
+    "fifa_protection_desc": "Automatic generation of mandatory written contracts for all $800+ bookings. Shielding venues from $25,000 civil penalties and double-damages litigation.",
+    "tax_automation_title": "W-9/1099 Automation",
+    "tax_automation_desc": "Automated collection of W-9s and generation of 1099-NEC forms for hundreds of performers. Reduce your accountant's workload by 90%."
   }
 }
