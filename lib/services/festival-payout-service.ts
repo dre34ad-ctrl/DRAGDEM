@@ -20,8 +20,8 @@ export class FestivalPayoutService {
       const status = p.amount > 100000 ? 'awaiting_approval' : 'queued';
       
       await team_db(`
-        INSERT INTO payout_jobs (id, festival_id, slot_id, performer_id, amount, currency, region, status, priority, next_run_at)
-        VALUES ('${jobId}', '${festivalId}', '${p.slotId}', '${p.performerId}', ${p.amount}, '${p.currency}', '${p.region}', '${status}', ${p.priority || 0}, CURRENT_TIMESTAMP)
+        INSERT INTO payout_jobs (id, festival_id, slot_id, performer_id, amount, currency, region, seeker_region, status, priority, next_run_at)
+        VALUES ('${jobId}', '${festivalId}', '${p.slotId}', '${p.performerId}', ${p.amount}, '${p.currency}', '${p.region}', '${p.seekerRegion || ''}', '${status}', ${p.priority || 0}, CURRENT_TIMESTAMP)
         ON CONFLICT(id) DO NOTHING
       `);
     }
@@ -90,6 +90,7 @@ export class FestivalPayoutService {
         job.amount, 
         job.currency, 
         job.region, 
+        job.seeker_region,
         lockHash
       );
 

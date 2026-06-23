@@ -23,9 +23,10 @@ export default async function DashboardPage() {
     .single();
 
   const userName = userData?.full_name || user.email?.split('@')[0] || "Artist";
+  const tier = userData?.subscription_tier || 'free';
 
-  // Case 1: Professional Performers
-  if (userData?.subscription_tier === 'pro') {
+  // Case 1: Professional Performers (Pro & Signature)
+  if (userData?.subscription_tier === 'pro' || userData?.subscription_tier === 'signature') {
     // Sync verification status if they are pro
     const verification = await getPerformerVerification(user.id);
     if (!verification || !verification.is_verified) {
@@ -33,7 +34,7 @@ export default async function DashboardPage() {
     }
 
     const dashboardData = await getProDashboardData();
-    return <ProDashboardClient data={dashboardData} userName={userName} />;
+    return <ProDashboardClient data={dashboardData} userName={userName} tier={tier} />;
   }
 
   // Case 2: Organizers / Talent Seekers (Phase 11 Institutional)
@@ -74,5 +75,5 @@ export default async function DashboardPage() {
   }
 
   // Case 3: Standard Dashboard
-  return <BaseDashboard userName={userName} />;
+  return <BaseDashboard userName={userName} tier={tier} />;
 }

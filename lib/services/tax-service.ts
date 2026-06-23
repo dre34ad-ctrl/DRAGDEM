@@ -9,8 +9,8 @@ export interface TaxCalculationParams {
 
 export interface TaxResult {
   vatRate: number;
-  withholdings: { name: string; percent: number }[];
-  isLiabilityToVenue: boolean;
+  withholdings: { name: string; percent: number; isLiability?: boolean }[];
+  isLiabilityToVenue: boolean; // Global flag for legacy support or major liability
 }
 
 /**
@@ -28,8 +28,16 @@ export class TaxService {
     let isLiabilityToVenue = false;
 
     // 1. Thailand VAT Threshold (1.8M THB)
-    if (performerRegion === 'TH' && totalRevenueYTD > 1800000) {
-      vatRate = 0.07;
+    if (performerRegion === 'TH') {
+      if (totalRevenueYTD > 1800000) {
+        vatRate = 0.07;
+      }
+      
+      // Thai Withholding Tax (WHT) / 50 Tawi
+      // Usually 3% for service/performance contracts when the seeker is a business
+      if (seekerRegion === 'TH') {
+        withholdings.push({ name: 'WHT (TH - 3%)', percent: 0.03 });
+      }
     }
 
     // 2. UK VAT Threshold (£90,000)
@@ -164,6 +172,13 @@ export class TaxService {
       withholdings.push({ name: 'Solidarity Surcharge (DE)', percent: 0.15 * 0.055 });
     }
 
+    // 22. Germany KSK Contribution (Abgabe)
+    if (seekerRegion === 'DE' && performerRegion === 'DE') {
+      // 5.0% KSK contribution paid by the seeker
+      withholdings.push({ name: 'KSK Contribution (DE)', percent: 0.05 });
+      isLiabilityToVenue = true;
+    }
+
     return {
       vatRate,
       withholdings,
@@ -180,3 +195,4 @@ export class TaxService {
   }
 }
 // Triggering fresh build for production verification - Mon Jun  8 06:54:43 UTC 2026
+// Triggering fresh build for production verification - Sun Jun 21 12:45:10 UTC 2026

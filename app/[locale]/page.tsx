@@ -41,7 +41,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
 
       {/* Hero Section with Stage Lighting */}
-      <section className="relative pt-48 pb-32 overflow-hidden stage-lighting-top">
+      <section className="relative pt-32 md:pt-48 pb-32 overflow-hidden stage-lighting-top">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('/noise.png')] opacity-20 pointer-events-none mix-blend-overlay" />
 
         {/* Cinematic Backdrop Elements */}
@@ -54,20 +54,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <span className="text-sm font-bold tracking-widest uppercase">International Performer Network</span>
           </div>
 
-          <h1 className="glamour-heading text-6xl md:text-[11rem] italic leading-tight mb-8">
-            The Professional <br/> <span className="text-primary">Backbone</span> for Drag.
+          <h1 className="glamour-heading text-4xl sm:text-7xl md:text-[11rem] italic leading-tight mb-8">
+            {t("hero_title_1")} <br/> <span className="text-primary">{t("hero_title_italic")}</span>
           </h1>
 
-          <p className="max-w-3xl mx-auto text-gray-400 text-xl md:text-2xl mb-16 leading-relaxed font-light italic">
-            Elevate your career with enterprise-grade tools for asset management, contract compliance, and global booking.
+          <p className="max-w-3xl mx-auto text-gray-400 text-lg md:text-2xl mb-16 leading-relaxed font-light italic">
+            {t("hero_description")}
           </p>
 
           <div className="flex flex-wrap justify-center gap-8">
             <Link href="/search" className="btn-prestige btn-prestige-primary px-12 py-6 text-xl group">
-              Find Talent <ArrowRight className="inline ml-3 group-hover:translate-x-2 transition-transform" />
+              {t("cta_get_started")} <ArrowRight className="inline ml-3 group-hover:translate-x-2 transition-transform" />
             </Link>
             <Link href="/onboarding" className="btn-prestige px-12 py-6 text-xl border-white/20 hover:bg-white/5">
-              Join the Collective
+              {t("cta_view_demo")}
             </Link>
           </div>
         </div>

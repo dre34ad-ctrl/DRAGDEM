@@ -1,9 +1,22 @@
 import { FestivalPayoutService } from '../lib/services/festival-payout-service.js';
 import { team_db } from '../lib/utils/team-db.js';
 import { PayoutEngine } from '../lib/services/payout-engine.js';
+import { TaxService } from '../lib/services/tax-service.js';
+import { ComplianceService } from '../lib/services/compliance-service.js';
 
 // --- MONKEY PATCH FOR SIMULATION ---
-(PayoutEngine as any).executePayout = async (userId: string, amount: number, currency: string, region: string, idempotencyKey?: string) => {
+(ComplianceService as any).checkPayoutCompliance = async (userId: string, region: string) => {
+  console.log(`[MOCK ComplianceService] Checking compliance for ${userId} in ${region}...`);
+  return { compliant: true };
+};
+
+(PayoutEngine as any).executePayout = async (userId: string, amount: number, currency: string, region: string, seekerRegion: string = '', idempotencyKey?: string) => {
+  // Explicitly call the real logic but mock the actual provider call
+  const taxResult = await TaxService.calculateGlobalTax({ amount, performerRegion: region, seekerRegion });
+  if (taxResult.withholdings.length > 0) {
+    console.log(`[MOCK PayoutEngine] Tax/Contribution detected for ${userId}: ${JSON.stringify(taxResult.withholdings)}`);
+  }
+  
   await new Promise(resolve => setTimeout(resolve, 50));
   return { success: true, ref: `MOCK_${idempotencyKey?.substring(0, 8)}` };
 };
@@ -20,11 +33,12 @@ async function simulate() {
   } catch (e) {}
   
   const payouts = [
-    { slotId: 'SL-01', performerId: 'PERF-A', amount: 500, currency: 'GBP', region: 'GB', priority: 1 },
-    { slotId: 'SL-02', performerId: 'PERF-B', amount: 1500, currency: 'GBP', region: 'GB', priority: 1 },
-    { slotId: 'SL-03', performerId: 'PERF-C', amount: 120000, currency: 'USD', region: 'US', priority: 2 }, // High value
-    { slotId: 'SL-04', performerId: 'PERF-D', amount: 800, currency: 'EUR', region: 'ES', priority: 1 },
-    { slotId: 'SL-05', performerId: 'PERF-E', amount: 300, currency: 'SEK', region: 'SE', priority: 1 },
+    { slotId: 'SL-01', performerId: 'PERF-A', amount: 500, currency: 'GBP', region: 'GB', seekerRegion: 'GB', priority: 1 },
+    { slotId: 'SL-02', performerId: 'PERF-B', amount: 1500, currency: 'GBP', region: 'GB', seekerRegion: 'GB', priority: 1 },
+    { slotId: 'SL-03', performerId: 'PERF-C', amount: 120000, currency: 'USD', region: 'US', seekerRegion: 'US', priority: 2 }, // High value
+    { slotId: 'SL-04', performerId: 'PERF-D', amount: 800, currency: 'EUR', region: 'ES', seekerRegion: 'ES', priority: 1 },
+    { slotId: 'SL-05', performerId: 'PERF-E', amount: 300, currency: 'SEK', region: 'SE', seekerRegion: 'SE', priority: 1 },
+    { slotId: 'SL-06', performerId: 'PERF-F', amount: 1000, currency: 'EUR', region: 'DE', seekerRegion: 'DE', priority: 1 }, // German Domestic (KSK)
   ];
 
   const batch = [];

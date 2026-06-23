@@ -8,16 +8,29 @@ import { BackstageHub } from "./BackstageHub";
 import { EducationGrowth } from "./EducationGrowth";
 import { BackstageComposer } from "@/components/pulse/BackstageComposer";
 import { ProDashboardData } from "@/lib/actions/pro-dashboard";
-import { ShieldCheck, User, X, Edit3, Rocket } from "lucide-react";
+import { ShieldCheck, User, X, Edit3, Rocket, Crown } from "lucide-react";
+import { createSignatureSession } from "@/lib/actions/subscriptions";
 
 interface ProDashboardClientProps {
   data: ProDashboardData;
   userName: string;
+  tier?: string;
 }
 
-export default function ProDashboardClient({ data, userName }: ProDashboardClientProps) {
+export default function ProDashboardClient({ data, userName, tier }: ProDashboardClientProps) {
   const [showComposer, setShowComposer] = useState(false);
+  const [isUpgrading, setIsUpgrading] = useState(false);
   const composerRef = useRef<HTMLDivElement>(null);
+
+  const handleUpgrade = async () => {
+    setIsUpgrading(true);
+    try {
+      await createSignatureSession();
+    } catch (error) {
+      console.error("Upgrade failed:", error);
+      setIsUpgrading(false);
+    }
+  };
 
   const handleNewPost = () => {
     setShowComposer(true);
@@ -55,12 +68,35 @@ export default function ProDashboardClient({ data, userName }: ProDashboardClien
               <p className="text-gray-500 font-black text-[10px] uppercase tracking-[0.5em] flex items-center gap-3">
                 <span className="text-primary underline decoration-primary/30 underline-offset-4">{userName}</span>
                 <span className="h-1.5 w-1.5 rounded-full bg-secondary shadow-glow-cyan animate-pulse" />
-                Verified Institutional Artist
+                {tier === 'signature' ? 'Signature Elite Artist' : 'Verified Institutional Artist'}
               </p>
             </div>
           </div>
           
           <div className="flex gap-4 w-full md:w-auto">
+            {tier !== "signature" && (
+              <button 
+                onClick={handleUpgrade}
+                disabled={isUpgrading}
+                className="flex-1 md:flex-none px-8 py-5 bg-luxury-gold text-black hover:bg-white rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-glow-gold/20"
+              >
+                {isUpgrading ? (
+                  <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                ) : (
+                  <Crown size={16} />
+                )}
+                {isUpgrading ? "Processing..." : "Upgrade to Signature"}
+              </button>
+            )}
+            {tier === 'signature' && (
+              <a 
+                href="/dashboard/signature-preview"
+                className="flex-1 md:flex-none px-8 py-5 bg-zinc-900 border border-luxury-gold/30 hover:border-luxury-gold rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 text-luxury-gold"
+              >
+                <Crown size={16} />
+                Signature Preview
+              </a>
+            )}
             <button className="flex-1 md:flex-none px-8 py-5 bg-zinc-900 border border-white/10 hover:border-white/30 rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
               <Edit3 size={16} />
               Edit Profile

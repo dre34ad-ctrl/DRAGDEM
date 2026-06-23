@@ -13,11 +13,25 @@ import {
   MoreHorizontal,
   ShieldCheck,
   ArrowRightLeft,
-  Settings
+  Settings,
+  Crown
 } from "lucide-react";
 import Link from "next/link";
+import { createSignatureSession } from "@/lib/actions/subscriptions";
+import { useState } from "react";
 
-export default function BaseDashboard({ userName }: { userName: string }) {
+export default function BaseDashboard({ userName, tier }: { userName: string, tier?: string }) {
+  const [isUpgrading, setIsUpgrading] = useState(false);
+
+  const handleUpgrade = async () => {
+    setIsUpgrading(true);
+    try {
+      await createSignatureSession();
+    } catch (error) {
+      console.error("Upgrade failed:", error);
+      setIsUpgrading(false);
+    }
+  };
   return (
     <main className="min-h-screen pb-20 bg-deep text-white">
       <Navbar />
@@ -31,12 +45,28 @@ export default function BaseDashboard({ userName }: { userName: string }) {
             </h1>
             <p className="text-gray-400 mt-4 font-inter text-sm uppercase tracking-[0.3em]">Institutional Grade Performance Tracking</p>
           </div>
-          <Link href="/settings/rates" className="group relative px-8 py-4 bg-deep-charcoal border border-luxury-gold/30 hover:border-luxury-gold transition-all rounded-2xl font-bold text-xs tracking-widest text-luxury-gold shadow-glow-gold/10">
-             <div className="flex items-center gap-3 relative z-10">
-               <Settings size={18} />
-               RATE & BILLING SETTINGS
-             </div>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {tier !== 'signature' && (
+              <button 
+                onClick={handleUpgrade}
+                disabled={isUpgrading}
+                className="group relative px-8 py-4 bg-luxury-gold text-black hover:bg-white transition-all rounded-2xl font-bold text-xs tracking-widest shadow-glow-gold/20 flex items-center gap-3 disabled:opacity-50"
+              >
+                {isUpgrading ? (
+                  <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                ) : (
+                  <Crown size={18} />
+                )}
+                {isUpgrading ? "PROCESSING..." : "UPGRADE TO SIGNATURE"}
+              </button>
+            )}
+            <Link href="/settings/rates" className="group relative px-8 py-4 bg-deep-charcoal border border-luxury-gold/30 hover:border-luxury-gold transition-all rounded-2xl font-bold text-xs tracking-widest text-luxury-gold shadow-glow-gold/10">
+               <div className="flex items-center gap-3 relative z-10">
+                 <Settings size={18} />
+                 RATE & BILLING SETTINGS
+               </div>
+            </Link>
+          </div>
         </div>
 
         {/* Overview Stats */}

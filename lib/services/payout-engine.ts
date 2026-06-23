@@ -1,7 +1,8 @@
 import { FXService } from './fx-service';
 import { ComplianceService } from './compliance-service';
+import { TaxService } from './tax-service';
 
-export type PayoutProvider = 'stripe' | 'dlocal' | 'wise' | 'airwallex' | 'mercadopago' | 'bizum' | 'interac' | 'paypay' | 'paybox' | 'swish' | 'vipps' | 'mobilepay' | 'gcash' | 'maya' | 'momo' | 'kakaopay' | 'naverpay' | 'nequi' | 'daviplata';
+export type PayoutProvider = 'stripe' | 'dlocal' | 'wise' | 'airwallex' | 'mercadopago' | 'bizum' | 'interac' | 'paypay' | 'paybox' | 'swish' | 'vipps' | 'mobilepay' | 'gcash' | 'maya' | 'momo' | 'kakaopay' | 'naverpay' | 'nequi' | 'daviplata' | 'promptpay';
 
 export interface RoutingDecision {
   provider: PayoutProvider;
@@ -16,8 +17,15 @@ export class PayoutEngine {
   static getOptimalProvider(region: string, currency: string, amount: number): RoutingDecision {
     const curr = currency.toUpperCase();
     
-    // 1. LATAM & Thailand -> dLocal, Mercado Pago or Wise
+    // 1. LATAM & Thailand -> dLocal, Mercado Pago, Wise or PromptPay
     if (['BR', 'MX', 'TH', 'AR'].includes(region)) {
+      if (region === 'TH' && curr === 'THB') {
+        return {
+          provider: 'promptpay',
+          estimatedFee: 0.0, // Often zero fee for PromptPay QR payouts via local rails
+          reason: 'PromptPay is the absolute priority for the Thailand Phase 15 pilot.'
+        };
+      }
       if (region === 'AR' && curr === 'ARS') {
         return {
           provider: 'mercadopago',
@@ -179,7 +187,7 @@ export class PayoutEngine {
    * Executes the payout using the selected provider.
    * (Placeholder logic for Wise/Airwallex integration)
    */
-  static async executePayout(userId: string, amount: number, currency: string, region: string, idempotencyKey?: string) {
+  static async executePayout(userId: string, amount: number, currency: string, region: string, seekerRegion: string = '', idempotencyKey?: string) {
     // Performer Safety: Enforce strict billing descriptors for high-risk regions
     let descriptor = 'DRAGDEM.com';
     if (['AE', 'SA', 'QA', 'KW'].includes(region)) {
@@ -192,6 +200,24 @@ export class PayoutEngine {
     if (!compliance.compliant) {
       console.error(`[PayoutEngine] Payout blocked for user ${userId}: ${compliance.reason}`);
       return { success: false, error: compliance.reason };
+    }
+
+    // EU Tax & KSK Logic Integration
+    if (seekerRegion) {
+      const taxResult = await TaxService.calculateGlobalTax({
+        amount,
+        performerRegion: region,
+        seekerRegion,
+        performerTaxRegime: compliance.context?.taxRegime,
+        hasTNumber: compliance.context?.hasTNumber
+      });
+
+      if (taxResult.withholdings.length > 0) {
+        console.log(`[PayoutEngine] Tax Calculation for ${userId}:`, JSON.stringify(taxResult.withholdings));
+        if (taxResult.isLiabilityToVenue) {
+          console.log(`[PayoutEngine] KSK/Domestic Liability detected for Seeker in ${seekerRegion}. Amount to be collected from seeker: ${taxResult.withholdings.map(w => `${w.name}: ${amount * w.percent}`).join(', ')}`);
+        }
+      }
     }
 
     const decision = this.getOptimalProvider(region, currency, amount);
@@ -238,7 +264,35 @@ export class PayoutEngine {
         return await this.executeNequiTransfer(userId, amount, currency);
       case 'daviplata':
         return await this.executeDaviPlataTransfer(userId, amount, currency);
+      case 'promptpay':
+        return await this.executePromptPayTransfer(userId, amount, currency, idempotencyKey);
     }
+  }
+
+  private static async executePromptPayTransfer(userId: string, amount: number, currency: string, idempotencyKey?: string) {
+    /**
+     * PromptPay Integration (Thailand):
+     * Uses Stripe's Thailand Payout API or dLocal local rails.
+     * For Phase 15, we prioritize direct real-time QR settlement.
+     */
+    console.log(`[PromptPay] Validating Thai PromptPay ID for user ${userId}...`);
+    
+    // Simulate lookup of user's PromptPay ID (Phone or National ID)
+    const promptPayId = `TH_PP_${userId.substring(0, 8)}`;
+    
+    console.log(`[PromptPay] Initiating real-time QR transfer to ${promptPayId} for ${amount} ${currency} | Idempotency: ${idempotencyKey}`);
+    
+    const ppRef = `PP-QR-${Date.now()}-${userId.substring(0, 4)}`;
+    
+    // Simulate successful response from PromptPay gateway
+    return { 
+      success: true, 
+      provider: 'promptpay', 
+      reference: ppRef,
+      targetId: promptPayId,
+      status: 'COMPLETED',
+      settlementTime: new Date().toISOString()
+    };
   }
 
   private static async executeWiseTransfer(userId: string, amount: number, currency: string, idempotencyKey?: string) {
