@@ -20,6 +20,7 @@ import { FranceGUSOForm } from "@/components/tax/FranceGUSOForm";
 import { AustraliaGSTInfo } from "@/components/tax/AustraliaGSTInfo";
 import { JapanInvoiceInfo } from "@/components/tax/JapanInvoiceInfo";
 import { SpainRETAInfo } from "@/components/tax/SpainRETAInfo";
+import { ThaiPromptPayInfo } from "@/components/tax/ThaiPromptPayInfo";
 
 const CURRENCIES: Record<string, { symbol: string, rate: number, name: string, region: string }> = {
   USD: { symbol: "$", rate: 1.0, name: "US Dollar", region: "US" },
@@ -236,6 +237,14 @@ export default function BookingPage() {
                       irpfWithholding={fees.withholdings.find(w => w.name.includes('IRPF'))?.amount || 0}
                       isB2B={isB2B}
                       isNewAutonomo={performer.taxRegime === 'RETA_NEW'}
+                    />
+                  )}
+
+                  {selectedRegion === 'TH' && (
+                    <ThaiPromptPayInfo 
+                      amount={fees.subtotal + fees.vatAmount + (fees.seekerPlatformFee || 0)}
+                      currency={currency}
+                      isB2B={isB2B}
                     />
                   )}
 

@@ -167,6 +167,13 @@ export function calculateFees({
     }
   }
 
+  // Southeast Asia & Thailand specifics
+  if (performerRegion === 'TH') {
+    if (seekerRegion === 'TH' && isB2B) {
+      withholdingsList.push({ name: 'WHT (TH - 3%)', amount: amount * 0.03 });
+    }
+  }
+
   // Germany KSK & Foreign Withholding (50a)
   if (seekerRegion === 'DE' && isB2B) {
     kskLiabilityPercent = 0.05;

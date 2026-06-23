@@ -12,12 +12,17 @@ export async function createBookingPayment(bookingId: string) {
   if (bookingError || !booking) throw new Error('Booking not found');
 
   // 1. Create PaymentIntent with manual capture
+  const isThaiPayment = booking.currency?.toLowerCase() === 'thb';
+  
   const paymentIntent = await stripe.paymentIntents.create({
     amount: Math.round(booking.total_fee * 100),
     currency: booking.currency || 'usd',
-    capture_method: 'manual',
+    capture_method: isThaiPayment ? 'automatic' : 'manual', // PromptPay does not support manual capture
     metadata: { booking_id: bookingId },
-    setup_future_usage: 'off_session',
+    ...(isThaiPayment 
+      ? { payment_method_types: ['promptpay', 'card'] } 
+      : { setup_future_usage: 'off_session' }
+    ),
   });
 
   // 2. Record in escrow_transactions
@@ -50,8 +55,12 @@ export async function captureEscrow(bookingId: string) {
 
   if (!escrow || escrow.status !== 'held') throw new Error('Escrow not in held state');
 
-  // 1. Capture in Stripe
-  await stripe.paymentIntents.capture(escrow.stripe_payment_intent_id);
+  // 1. Capture in Stripe (only for manual capture payments)
+  if (escrow.currency?.toLowerCase() !== 'thb') {
+    await stripe.paymentIntents.capture(escrow.stripe_payment_intent_id);
+  } else {
+    console.log(`[Escrow] Skipping Stripe capture for THB transaction ${escrow.stripe_payment_intent_id} (automatic capture used)`);
+  }
 
   // 2. Update status
   const { error: updateError } = await supabase

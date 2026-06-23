@@ -25,16 +25,13 @@ export async function POST(req: Request) {
     case 'checkout.session.completed': {
       const session = event.data.object as any;
       if (session.mode === 'subscription') {
-        const subscriptionId = session.subscription;
         const customerId = session.customer;
-        
-        const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-        const userId = session.metadata.supabase_user_id;
+        const upgradeType = session.metadata?.upgrade_type;
 
         await supabase
           .from('users')
           .update({
-            subscription_tier: 'pro',
+            subscription_tier: upgradeType === 'signature' ? 'signature' : 'pro',
             updated_at: new Date().toISOString(),
           })
           .eq('stripe_customer_id', customerId);
@@ -71,6 +68,19 @@ export async function POST(req: Request) {
         await supabase
           .from('bookings')
           .update({ status: 'confirmed' })
+          .eq('id', bookingId);
+      }
+      break;
+    }
+
+    case 'payment_intent.payment_failed': {
+      const paymentIntent = event.data.object as any;
+      const bookingId = paymentIntent.metadata.booking_id;
+
+      if (bookingId) {
+        await supabase
+          .from('bookings')
+          .update({ status: 'failed' })
           .eq('id', bookingId);
       }
       break;
