@@ -64,6 +64,11 @@ const CITY_BENCHMARKS: Record<string, LDIBenchmark> = {
     dignity_standard: 2000,
     currency: 'THB',
     compliance_requirements: ['e-Withholding Tax', 'PromptPay QR', 'Katoey Identity Support']
+  },
+  'Tokyo': {
+    dignity_standard: 25000,
+    currency: 'JPY',
+    compliance_requirements: ['JCT Qualified Invoice', 'Gensen Choshu (10.21%)', 'Anti-Social Forces (ASF) Check']
   }
 };
 
@@ -144,6 +149,17 @@ const REGULATORY_DEMO_DATA: Record<string, any> = {
       { label: 'KSK Contributions', value: '5.2%' },
       { label: 'Kleinunternehmer', value: 'Verified' },
       { label: 'Senate Reporting', value: 'Live' }
+    ]
+  },
+  'Tokyo': {
+    bridge_name: 'JCT / Qualified Invoice Bridge',
+    active_tokens: '1,120',
+    total_tax_collected: '¥ 12,450,000',
+    compliance_status: '93%',
+    highlights: [
+      { label: 'JCT (Consumption Tax)', value: '10%' },
+      { label: 'Withholding Tax', value: '10.21%' },
+      { label: 'T-Number Verified', value: 'Live' }
     ]
   }
 };

@@ -188,10 +188,25 @@ export function generateInvoiceData(
 
   if (performer.region === 'IL') {
     // Israel Electronic Signature Disclaimer
-    const ilDisclaimer = 'חשבונית מס/קבלה - מסמך ממוחשב חתום דיגיטלית (Electronic Invoice).';
+    const ilDisclaimer = 'חשבונית מס/קבלה - מסมך ממוחשב חתום דיגיטלית (Electronic Invoice).';
     invoiceData.disclaimer = invoiceData.disclaimer 
       ? `${invoiceData.disclaimer} ${ilDisclaimer}` 
       : ilDisclaimer;
+  }
+
+  if (performer.region === 'JP') {
+    // Japan JCT Qualified Invoice Disclaimer
+    if (options.hasTNumber) {
+      const jpDisclaimer = '適格請求書発行事業者登録番号: ' + performer.national_id + '。この請求書は日本の適格請求書等保存方式（インボイス制度）に対応しています。';
+      invoiceData.disclaimer = invoiceData.disclaimer 
+        ? `${invoiceData.disclaimer} ${jpDisclaimer}` 
+        : jpDisclaimer;
+    } else {
+      const jpDisclaimer = 'この請求書は適格請求書ではありません。';
+      invoiceData.disclaimer = invoiceData.disclaimer 
+        ? `${invoiceData.disclaimer} ${jpDisclaimer}` 
+        : jpDisclaimer;
+    }
   }
 
   return invoiceData;

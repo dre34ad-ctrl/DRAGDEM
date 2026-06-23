@@ -91,7 +91,7 @@ export class PayoutEngine {
         return {
           provider: 'stripe',
           estimatedFee: amount * 0.015, // Higher fee for JP
-          reason: 'Stripe Connect has deep integration with Japanese banking rails.'
+          reason: 'Stripe Connect supports Zengin bank transfers for compliant Japanese payouts.'
         };
       }
       return {

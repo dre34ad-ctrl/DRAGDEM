@@ -71,7 +71,7 @@ export class ComplianceService {
       compliant: true,
       context: {
         taxRegime: profile?.tax_regime,
-        hasTNumber: !!user.tax_id // Simplified for now
+        hasTNumber: region === 'JP' && user.tax_id?.startsWith('T') && user.tax_id.length === 14
       }
     };
   }
