@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { teamDb } from '@/lib/db';
 
 /**
  * Action to handle regional compliance verifications.
@@ -54,4 +55,32 @@ export async function confirmJapanASF() {
   if (error) throw error;
 
   return { success: true };
+}
+
+/**
+ * Fetches the current Thailand VAT compliance status from the revenue ledger.
+ */
+export async function getThailandVATStatus() {
+  const sql = `
+    SELECT 
+        SUM(revenue_amount) as current_annual_revenue_thb,
+        1800000.0 as threshold_thb,
+        ROUND((SUM(revenue_amount) / 1800000.0) * 100, 2) as percentage_reached
+    FROM platform_revenue_ledger
+    WHERE customer_region = 'TH'
+      AND (customer_tax_status IS NULL OR customer_tax_status != 'VAT_REGISTERED')
+      AND created_at >= date('now', 'start of year');
+  `;
+
+  const results = await teamDb(sql);
+  
+  if (!results || results.length === 0) {
+    return {
+      current_annual_revenue_thb: 0,
+      threshold_thb: 1800000,
+      percentage_reached: 0
+    };
+  }
+
+  return results[0];
 }

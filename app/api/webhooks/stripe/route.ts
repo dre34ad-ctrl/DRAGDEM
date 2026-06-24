@@ -2,6 +2,7 @@ import { stripe } from '@/lib/stripe';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { RevenueService } from '@/lib/services/revenue-service';
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -35,6 +36,25 @@ export async function POST(req: Request) {
             updated_at: new Date().toISOString(),
           })
           .eq('stripe_customer_id', customerId);
+
+        // Record Subscription Revenue in Ledger
+        const { data: user } = await supabase
+          .from('users')
+          .select('id, region, tax_regime')
+          .eq('stripe_customer_id', customerId)
+          .single();
+
+        if (user) {
+          await RevenueService.recordRevenue({
+            transactionId: session.id,
+            revenueAmount: session.amount_total / 100,
+            currency: session.currency,
+            feeType: 'subscription',
+            customerId: user.id,
+            customerRegion: user.region,
+            customerTaxStatus: user.tax_regime
+          });
+        }
       }
       break;
     }
@@ -69,6 +89,55 @@ export async function POST(req: Request) {
           .from('bookings')
           .update({ status: 'confirmed' })
           .eq('id', bookingId);
+
+        // Record Platform Fees in Ledger (0.3% from each side as per Phase 15 standards)
+        const { data: booking } = await supabase
+          .from('bookings')
+          .select('seeker_id, performer_id')
+          .eq('id', bookingId)
+          .single();
+
+        if (booking) {
+          const platformFeeAmount = (paymentIntent.amount / 100) * 0.003;
+
+          // Seeker Side
+          const { data: seeker } = await supabase
+            .from('users')
+            .select('region, tax_regime')
+            .eq('id', booking.seeker_id)
+            .single();
+          
+          if (seeker) {
+            await RevenueService.recordRevenue({
+              transactionId: bookingId,
+              revenueAmount: platformFeeAmount,
+              currency: paymentIntent.currency,
+              feeType: 'platform_fee',
+              customerId: booking.seeker_id,
+              customerRegion: seeker.region,
+              customerTaxStatus: seeker.tax_regime
+            });
+          }
+
+          // Performer Side
+          const { data: performer } = await supabase
+            .from('users')
+            .select('region, tax_regime')
+            .eq('id', booking.performer_id)
+            .single();
+          
+          if (performer) {
+            await RevenueService.recordRevenue({
+              transactionId: bookingId,
+              revenueAmount: platformFeeAmount,
+              currency: paymentIntent.currency,
+              feeType: 'platform_fee',
+              customerId: booking.performer_id,
+              customerRegion: performer.region,
+              customerTaxStatus: performer.tax_regime
+            });
+          }
+        }
       }
       break;
     }
